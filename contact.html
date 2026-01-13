@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <title>Contact | Sam Bevans - Aerospace Engineer</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <div class="wrapper">
+    <header class="header">
+      <div class="header__container">
+        <a href="index.html" class="header__logo logo">
+          <img src="images/Logos/Aerospace Logo.png" alt="Sam Bevans" />
+        </a>
+        <div class="header__navigation">
+          <div class="header__menu menu">
+            <nav class="menu__body">
+              <ul class="menu__list">
+                <li class="menu__item"><a href="index.html" class="menu__link">Home</a></li>
+                <li class="menu__item"><a href="about.html" class="menu__link">About</a></li>
+                <li class="menu__item"><a href="services.html" class="menu__link">Projects</a></li>
+                <li class="menu__item"><a href="contact.html" class="menu__link">Contact</a></li>
+              </ul>
+              <a href="contact.html" class="actions-header__button">Get In Touch</a>
+            </nav>
+          </div>
+          <div class="header__actions actions-header">
+            <button type="button" class="menu__icon icon-menu"><span></span></button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main class="page">
+      <section class="page__main main main_contact main_pages">
+        <div class="main__container main__container_pages">
+          <h1 class="main__title">Contact</h1>
+          <div class="main__text main__text_pages">
+            Let's connect and explore aerospace engineering opportunities together.
+          </div>
+        </div>
+      </section>
+      <section class="page__contact contact">
+        <div class="contact__container">
+          <div class="contact__info">
+            <h2 class="contact__title">Get In Touch</h2>
+            <div class="contact__text">
+              <p>
+                I'm always interested in connecting with fellow engineers, potential collaborators, and organizations working on exciting aerospace projects. Whether you have a technical challenge to discuss, a career opportunity, or just want to exchange ideas about aerospace engineering, I'd love to hear from you.
+              </p>
+              <p>
+                Feel free to reach out through the form below or any of the contact methods listed, and I'll get back to you as soon as possible.
+              </p>
+            </div>
+            <div class="contact__contacts">
+              <div class="connect-contact">
+                <a href="tel:+15636761992" class="connect-contact__item">
+                  <div class="connect-contact__icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M22 16.92V19.92C22 20.52 21.52 21 20.92 21C9.4 21 0 11.6 0 0.08C0 -0.52 0.48 -1 1.08 -1H4.08C4.68 -1 5.16 -0.52 5.16 0.08V3.58C5.16 4.18 4.68 4.66 4.08 4.66H1.92C2.52 10.48 7.52 15.48 13.34 16.08V13.92C13.34 13.32 13.82 12.84 14.42 12.84H17.92C18.52 12.84 19 13.32 19 13.92V16.92H22Z" fill="#4dd4ff"/>
+                    </svg>
+                  </div>
+                  <div class="connect-contact__content">
+                    <h3 class="connect-contant__type">Phone</h3>
+                    <div class="connect-contact__label">(563) 676-1992</div>
+                  </div>
+                </a>
+                <a href="mailto:sbevans@iastate.edu" class="connect-contact__item">
+                  <div class="connect-contact__icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z" fill="#4dd4ff"/>
+                    </svg>
+                  </div>
+                  <div class="connect-contact__content">
+                    <h3 class="connect-contant__type">Email</h3>
+                    <div class="connect-contact__label">sbevans@iastate.edu</div>
+                  </div>
+                </a>
+                <a href="https://www.google.com/maps" target="_blank" class="connect-contact__item">
+                  <div class="connect-contact__icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z" fill="#4dd4ff"/>
+                    </svg>
+                  </div>
+                  <div class="connect-contact__content">
+                    <h3 class="connect-contant__type">Location</h3>
+                    <div class="connect-contact__label">Los Angeles, CA, USA</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="contact__form-wrapper">
+            <h2 class="contact__title">Send a Message</h2>
+            <form class="contact__form" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+              <div class="form__group">
+                <label for="name" class="form__label">Full Name <span class="form__required">*</span></label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  class="form__input" 
+                  placeholder="Enter your full name"
+                  required
+                />
+              </div>
+              <div class="form__group">
+                <label for="email" class="form__label">Email Address <span class="form__required">*</span></label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  class="form__input" 
+                  placeholder="your.email@example.com"
+                  required
+                />
+              </div>
+              <div class="form__group">
+                <label for="phone" class="form__label">Phone Number</label>
+                <input 
+                  type="tel" 
+                  id="phone" 
+                  name="phone" 
+                  class="form__input" 
+                  placeholder="(555) 123-4567"
+                />
+              </div>
+              <div class="form__group">
+                <label for="subject" class="form__label">Subject <span class="form__required">*</span></label>
+                <input 
+                  type="text" 
+                  id="subject" 
+                  name="subject" 
+                  class="form__input" 
+                  placeholder="What is this regarding?"
+                  required
+                />
+              </div>
+              <div class="form__group">
+                <label for="message" class="form__label">Message <span class="form__required">*</span></label>
+                <textarea 
+                  id="message" 
+                  name="message" 
+                  class="form__textarea" 
+                  rows="6"
+                  placeholder="Tell me about your project or inquiry..."
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="contact__submit button">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </section>
+      <section class="page__map map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d423286.27405670577!2d-118.69192047471653!3d34.02016130653294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c75ddc27da13%3A0xe22fdf6f254608f4!2sLos%20Angeles%2C%20CA!5e0!3m2!1sen!2sus!4v1736237616553!5m2!1sen!2sus"
+          width="100%" 
+          height="450" 
+          style="border: 0" 
+          allowfullscreen="" 
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer__container">
+        <a href="#" class="footer__policy">Privacy Policy – Terms & Conditions</a>
+        <a href="index.html" class="footer__logo logo">
+          <img src="images/Logos/Aerospace Logo.png" alt="Sam Bevans" />
+        </a>
+        <div class="footer__copyright">Copyright © 2025 Sam Bevans – All Rights Reserved</div>
+      </div>
+    </footer>
+  </div>
+  <script src="js/script.js"></script>
+  <script>
+    // Handle form submission with Formspree
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      const form = this;
+      const submitButton = form.querySelector('.contact__submit');
+      const originalButtonText = submitButton.textContent;
+      
+      // Show loading state
+      submitButton.textContent = 'Sending...';
+      submitButton.disabled = true;
+      
+      // Create FormData object
+      const formData = new FormData(form);
+      
+      // Add email recipient (Formspree will send to this email)
+      formData.append('_to', 'sbevans@iastate.edu');
+      formData.append('_subject', 'New Contact Form Submission: ' + form.querySelector('#subject').value);
+      
+      // Send form data to Formspree
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(function(response) {
+        if (response.ok) {
+          // Success
+          submitButton.textContent = 'Message Sent! ✓';
+          submitButton.style.background = 'linear-gradient(135deg, #4dd4ff 0%, #3676d7 100%)';
+          form.reset();
+          
+          // Reset button after 4 seconds
+          setTimeout(function() {
+            submitButton.textContent = originalButtonText;
+            submitButton.style.background = '';
+            submitButton.disabled = false;
+          }, 4000);
+        } else {
+          throw new Error('Form submission failed');
+        }
+      })
+      .catch(function(error) {
+        // Error
+        console.error('Form submission error:', error);
+        submitButton.textContent = 'Error - Try Again';
+        submitButton.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #c92a2a 100%)';
+        
+        // Reset button after 3 seconds
+        setTimeout(function() {
+          submitButton.textContent = originalButtonText;
+          submitButton.style.background = '';
+          submitButton.disabled = false;
+        }, 3000);
+      });
+    });
+  </script>
+</body>
+
+</html>
