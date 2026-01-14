@@ -1066,7 +1066,7 @@ body {
 /* **************SERVICES**************** */
 
 .main_services {
-  background: url("../images/Services/Services-Hero.jpg") center / cover no-repeat;
+  background: url("../images/Projects/Services-Hero.jpg") center / cover no-repeat;
 }
 
 .services {
@@ -1229,7 +1229,7 @@ body {
 }
 
 .outro_services {
-  background: url("../images/Services/CTA.jpg") center / cover no-repeat;
+  background: url("../images/Projects/CTA.jpg") center / cover no-repeat;
 }
 
 /* ************TESTIMONIAL**************** */
