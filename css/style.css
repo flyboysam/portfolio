@@ -120,6 +120,18 @@
   }
 }
 
+@keyframes brandGlow {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(77, 212, 255, 0.4),
+                 0 0 20px rgba(77, 212, 255, 0.2);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(77, 212, 255, 0.8),
+                 0 0 30px rgba(77, 212, 255, 0.4),
+                 0 0 40px rgba(77, 212, 255, 0.2);
+  }
+}
+
 @keyframes retroFlicker {
 
   0%,
@@ -467,7 +479,7 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.6;
-  color: rgba(17, 24, 39, 0.9) !important;
+  color: rgba(17, 24, 39, 0.9);
   background: #ede5ff;
   background-image:
     linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
@@ -548,7 +560,7 @@ body {
   text-transform: none;
   letter-spacing: -0.02em;
   text-shadow: none;
-  color: #fff !important;
+  color: #fff;
   position: relative;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -660,6 +672,35 @@ body {
 .header__logo {
   position: relative;
   z-index: 2;
+}
+
+.header__logo:hover {
+  transform: none;
+  animation: none;
+}
+
+.header__logo:hover::before {
+  opacity: 0;
+}
+
+.header__logo:hover .logo-text {
+  animation: none;
+}
+
+.logo-text {
+  font-family: "Orbitron", sans-serif;
+  font-size: 1.65rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-shadow: 0 0 15px rgba(77, 212, 255, 0.8),
+               0 0 30px rgba(77, 212, 255, 0.5),
+               0 2px 4px rgba(0, 0, 0, 0.5);
+  display: block;
+  white-space: nowrap;
+  cursor: default;
+  animation: float 3s ease-in-out infinite;
 }
 
 .header__navigation {
@@ -2924,5 +2965,10 @@ iframe {
 
   .resources__container {
     grid-template-columns: 1fr;
+  }
+
+  .logo-text {
+    font-size: 1.15rem;
+    letter-spacing: 2px;
   }
 }
