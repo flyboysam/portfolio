@@ -1,0 +1,545 @@
+/* Advanced Aerospace Rocket Loader */
+.loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #0d1b2a 0%, #1a2332 50%, #0d1b2a 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  overflow: hidden;
+}
+
+.loader-wrapper.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Rocket Container */
+.rocket-loader {
+  position: relative;
+  width: 250px;
+  height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Advanced Rocket SVG */
+.rocket {
+  width: 200px;
+  height: 280px;
+  animation: rocketHover 3s ease-in-out infinite, rocketVibrate 0.1s ease-in-out infinite;
+  filter: drop-shadow(0 0 30px rgba(79, 216, 232, 0.6)) drop-shadow(0 0 60px rgba(217, 70, 170, 0.3));
+  z-index: 2;
+  position: relative;
+}
+
+/* Rocket Hover Animation */
+@keyframes rocketHover {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-12px) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-12px) rotate(1deg);
+  }
+}
+
+/* Engine Vibration */
+@keyframes rocketVibrate {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  25% {
+    transform: translateX(-0.5px) translateY(0.5px);
+  }
+  50% {
+    transform: translateX(0.5px) translateY(-0.5px);
+  }
+  75% {
+    transform: translateX(-0.5px) translateY(-0.5px);
+  }
+}
+
+/* Rocket Shadow Pulse */
+.rocket-shadow {
+  animation: shadowPulse 3s ease-in-out infinite;
+}
+
+@keyframes shadowPulse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scaleX(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scaleX(1.2);
+  }
+}
+
+/* Panel Lines Glow */
+.panel-line {
+  animation: panelGlow 2s ease-in-out infinite;
+}
+
+.p1 { animation-delay: 0s; }
+.p2 { animation-delay: 0.3s; }
+.p3 { animation-delay: 0.6s; }
+
+@keyframes panelGlow {
+  0%, 100% {
+    opacity: 0.3;
+    stroke: rgba(79, 216, 232, 0.3);
+  }
+  50% {
+    opacity: 1;
+    stroke: rgba(79, 216, 232, 1);
+  }
+}
+
+/* Rivet Pulse */
+.rivet {
+  animation: rivetPulse 1.5s ease-in-out infinite;
+}
+
+.r1 { animation-delay: 0s; }
+.r2 { animation-delay: 0.1s; }
+.r3 { animation-delay: 0.2s; }
+.r4 { animation-delay: 0.3s; }
+.r5 { animation-delay: 0.4s; }
+.r6 { animation-delay: 0.5s; }
+.r7 { animation-delay: 0.6s; }
+.r8 { animation-delay: 0.7s; }
+
+@keyframes rivetPulse {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Antenna Signal Waves */
+.antenna-signal {
+  animation: signalWave 2s ease-out infinite;
+}
+
+.s1 { animation-delay: 0s; }
+.s2 { animation-delay: 0.5s; }
+
+@keyframes signalWave {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
+/* Antenna Tip Blink */
+.antenna-tip {
+  animation: antennaBlink 1s ease-in-out infinite;
+}
+
+@keyframes antennaBlink {
+  0%, 90%, 100% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 0.3;
+  }
+}
+
+/* Window Glow */
+.window {
+  animation: windowGlow 2s ease-in-out infinite;
+}
+
+.w1 { animation-delay: 0s; }
+.w2 { animation-delay: 0.3s; }
+.w3 { animation-delay: 0.6s; }
+
+@keyframes windowGlow {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.5) drop-shadow(0 0 8px rgba(79, 216, 232, 0.8));
+  }
+}
+
+/* Fin Animations */
+.fin {
+  animation: finShimmer 3s ease-in-out infinite;
+}
+
+.left-fin { animation-delay: 0s; }
+.right-fin { animation-delay: 0.5s; }
+.back-fin { animation-delay: 1s; }
+
+@keyframes finShimmer {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Flame Animations */
+.flame-layer {
+  animation: flameFlicker 0.15s ease-in-out infinite;
+  transform-origin: 50% 0%;
+}
+
+.f1 { animation-delay: 0s; animation-duration: 0.12s; }
+.f2 { animation-delay: 0.03s; animation-duration: 0.15s; }
+.f3 { animation-delay: 0.06s; animation-duration: 0.18s; }
+.f4 { animation-delay: 0.09s; animation-duration: 0.14s; }
+.f5 { animation-delay: 0.02s; animation-duration: 0.16s; }
+.f6 { animation-delay: 0.05s; animation-duration: 0.13s; }
+.f7 { animation-delay: 0.04s; animation-duration: 0.17s; }
+.f8 { animation-delay: 0.07s; animation-duration: 0.15s; }
+
+@keyframes flameFlicker {
+  0%, 100% {
+    transform: scaleY(1) scaleX(1);
+    opacity: 1;
+  }
+  25% {
+    transform: scaleY(1.15) scaleX(0.92);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scaleY(0.95) scaleX(1.08);
+    opacity: 0.9;
+  }
+  75% {
+    transform: scaleY(1.08) scaleX(0.96);
+    opacity: 0.93;
+  }
+}
+
+/* Thrust Particles */
+.particle {
+  animation: particleBounce 0.8s ease-in-out infinite;
+}
+
+.tp1 { animation-delay: 0s; }
+.tp2 { animation-delay: 0.1s; }
+.tp3 { animation-delay: 0.2s; }
+.tp4 { animation-delay: 0.3s; }
+.tp5 { animation-delay: 0.4s; }
+.tp6 { animation-delay: 0.5s; }
+
+@keyframes particleBounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-5px) scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Smoke Particles */
+.smoke-particle {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  width: var(--size);
+  height: var(--size);
+  background: radial-gradient(circle, rgba(245, 166, 35, 0.6), rgba(217, 70, 170, 0.3), transparent);
+  border-radius: 50%;
+  animation: smokeRise 2.5s ease-out infinite;
+  animation-delay: var(--delay);
+  opacity: 0;
+  transform: translateX(var(--x));
+  filter: blur(8px);
+  z-index: 1;
+}
+
+@keyframes smokeRise {
+  0% {
+    transform: translateY(0) translateX(var(--x)) scale(0.5) rotate(0deg);
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-150px) translateX(calc(var(--x) * 2)) scale(1.5) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+/* Energy Particles */
+.energy-particle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #4FD8E8, #3D7EDB);
+  border-radius: 50%;
+  animation: energyOrbit 3s linear infinite;
+  animation-delay: var(--delay);
+  box-shadow: 0 0 10px rgba(79, 216, 232, 0.8);
+  z-index: 3;
+}
+
+@keyframes energyOrbit {
+  0% {
+    transform: rotate(var(--angle)) translateX(80px) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: rotate(calc(var(--angle) + 180deg)) translateX(100px) scale(1.5);
+    opacity: 0.6;
+  }
+  100% {
+    transform: rotate(calc(var(--angle) + 360deg)) translateX(80px) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Stars in Background */
+.loader-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(2px 2px at 10% 20%, white, transparent),
+    radial-gradient(2px 2px at 20% 80%, white, transparent),
+    radial-gradient(1px 1px at 30% 40%, white, transparent),
+    radial-gradient(2px 2px at 40% 10%, white, transparent),
+    radial-gradient(1px 1px at 50% 60%, white, transparent),
+    radial-gradient(2px 2px at 60% 30%, white, transparent),
+    radial-gradient(1px 1px at 70% 70%, white, transparent),
+    radial-gradient(2px 2px at 80% 50%, white, transparent),
+    radial-gradient(1px 1px at 90% 15%, white, transparent),
+    radial-gradient(1px 1px at 15% 50%, white, transparent),
+    radial-gradient(2px 2px at 35% 85%, white, transparent),
+    radial-gradient(1px 1px at 55% 25%, white, transparent),
+    radial-gradient(2px 2px at 75% 90%, white, transparent),
+    radial-gradient(1px 1px at 85% 35%, white, transparent),
+    radial-gradient(2px 2px at 25% 65%, white, transparent);
+  background-size: 
+    300% 300%, 280% 280%, 320% 320%, 290% 290%, 310% 310%,
+    295% 295%, 305% 305%, 285% 285%, 315% 315%, 300% 300%,
+    290% 290%, 310% 310%, 295% 295%, 305% 305%, 300% 300%;
+  background-position: 
+    0% 0%, 100% 100%, 50% 50%, 25% 75%, 75% 25%,
+    10% 90%, 90% 10%, 40% 60%, 60% 40%, 30% 30%,
+    70% 70%, 20% 80%, 80% 20%, 45% 55%, 55% 45%;
+  animation: starsTwinkle 4s ease-in-out infinite;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+@keyframes starsTwinkle {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Nebula Effect */
+.loader-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(79, 216, 232, 0.15), rgba(217, 70, 170, 0.1), transparent);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: nebulaPulse 6s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes nebulaPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 0.6;
+  }
+}
+
+/* Loading Text */
+.loader-text {
+  position: relative;
+  margin-top: 50px;
+  font-family: "Inter", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #4FD8E8;
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  animation: textPulse 2s ease-in-out infinite;
+  z-index: 2;
+  text-shadow: 
+    0 0 10px rgba(79, 216, 232, 0.8),
+    0 0 20px rgba(79, 216, 232, 0.5),
+    0 0 30px rgba(79, 216, 232, 0.3);
+}
+
+@keyframes textPulse {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+    letter-spacing: 0.4em;
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+    letter-spacing: 0.5em;
+  }
+}
+
+/* Progress Bar */
+.loader-progress {
+  position: relative;
+  width: 300px;
+  height: 6px;
+  background: rgba(79, 216, 232, 0.2);
+  border-radius: 10px;
+  margin-top: 30px;
+  overflow: hidden;
+  z-index: 2;
+  box-shadow: 
+    inset 0 0 10px rgba(79, 216, 232, 0.3),
+    0 0 20px rgba(79, 216, 232, 0.2);
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, 
+    #4FD8E8 0%, 
+    #3D7EDB 25%, 
+    #6B3FA0 50%, 
+    #D946AA 75%, 
+    #F5A623 100%);
+  border-radius: 10px;
+  animation: progressFill 3s ease-in-out infinite;
+  box-shadow: 
+    0 0 15px rgba(79, 216, 232, 0.6),
+    0 0 30px rgba(217, 70, 170, 0.4);
+  position: relative;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.3) 50%, 
+    transparent 100%);
+  animation: progressShine 1.5s ease-in-out infinite;
+}
+
+@keyframes progressFill {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes progressShine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .rocket {
+    width: 150px;
+    height: 210px;
+  }
+  
+  .rocket-loader {
+    width: 200px;
+    height: 280px;
+  }
+  
+  .loader-text {
+    font-size: 1.1rem;
+    letter-spacing: 0.3em;
+  }
+  
+  .loader-progress {
+    width: 250px;
+    height: 5px;
+  }
+  
+  .energy-particle {
+    display: none; /* Hide on mobile for performance */
+  }
+  
+  .loader-wrapper::after {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rocket {
+    width: 120px;
+    height: 168px;
+  }
+  
+  .rocket-loader {
+    width: 160px;
+    height: 230px;
+  }
+  
+  .loader-text {
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    margin-top: 30px;
+  }
+  
+  .loader-progress {
+    width: 200px;
+    height: 4px;
+    margin-top: 20px;
+  }
+  
+  .smoke-particle {
+    display: none; /* Hide on small mobile for performance */
+  }
+}
