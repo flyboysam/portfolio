@@ -13,234 +13,56 @@
 <body>
   <!-- Loader -->
   <div class="loader-wrapper">
-    <div class="rocket-loader">
-      <!-- Advanced Rocket SVG -->
-      <svg class="rocket" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
-        <!-- Shadow/Glow Base -->
-        <ellipse cx="100" cy="200" rx="40" ry="8" fill="url(#shadowGradient)" opacity="0.3" class="rocket-shadow"/>
-        
-        <!-- Main Rocket Body -->
-        <g class="rocket-body">
-          <!-- Body Shell -->
-          <path d="M 85 180 L 85 100 Q 85 80, 100 60 Q 115 80, 115 100 L 115 180 Z" 
-                fill="url(#bodyGradient)" stroke="url(#bodyStroke)" stroke-width="1.5"/>
-          
-          <!-- Body Panels (Detail Lines) -->
-          <line x1="85" y1="120" x2="115" y2="120" stroke="rgba(79, 216, 232, 0.3)" stroke-width="1" class="panel-line p1"/>
-          <line x1="85" y1="140" x2="115" y2="140" stroke="rgba(79, 216, 232, 0.3)" stroke-width="1" class="panel-line p2"/>
-          <line x1="85" y1="160" x2="115" y2="160" stroke="rgba(79, 216, 232, 0.3)" stroke-width="1" class="panel-line p3"/>
-          
-          <!-- Rivets -->
-          <circle cx="88" cy="110" r="1.5" fill="#4FD8E8" opacity="0.6" class="rivet r1"/>
-          <circle cx="112" cy="110" r="1.5" fill="#4FD8E8" opacity="0.6" class="rivet r2"/>
-          <circle cx="88" cy="130" r="1.5" fill="#4FD8E8" opacity="0.6" class="rivet r3"/>
-          <circle cx="112" cy="130" r="1.5" fill="#4FD8E8" opacity="0.6" class="rivet r4"/>
-          <circle cx="88" cy="150" r="1.5" fill="#4FD8E8" opacity="0.6" class="rivet r5"/>
-          <circle cx="112" cy="150" r="1.5" fill="#4FD8E8" opacity="0.6" class="rivet r6"/>
-          <circle cx="88" cy="170" r="1.5" fill="#4FD8E8" opacity="0.6" class="rivet r7"/>
-          <circle cx="112" cy="170" r="1.5" fill="#4FD8E8" opacity="0.6" class="rivet r8"/>
-        </g>
-        
-        <!-- Nose Cone -->
-        <g class="nose-cone">
-          <path d="M 100 30 L 115 60 L 85 60 Z" fill="url(#noseGradient)" stroke="url(#noseStroke)" stroke-width="1.5"/>
-          <path d="M 100 30 L 108 60 L 92 60 Z" fill="url(#noseHighlight)" opacity="0.4"/>
-          <!-- Antenna -->
-          <line x1="100" y1="30" x2="100" y2="20" stroke="#F5A623" stroke-width="1.5" class="antenna"/>
-          <circle cx="100" cy="18" r="3" fill="#F5A623" class="antenna-tip"/>
-          <circle cx="100" cy="18" r="5" fill="none" stroke="#F5A623" stroke-width="0.5" opacity="0.6" class="antenna-signal s1"/>
-          <circle cx="100" cy="18" r="8" fill="none" stroke="#F5A623" stroke-width="0.5" opacity="0.4" class="antenna-signal s2"/>
-        </g>
-        
-        <!-- Windows -->
-        <g class="windows">
-          <circle cx="100" cy="85" r="10" fill="url(#windowGradient)" stroke="#4FD8E8" stroke-width="1.5" class="window w1"/>
-          <circle cx="100" cy="85" r="7" fill="#97E6FF" opacity="0.6"/>
-          <path d="M 95 82 Q 100 80, 105 82" stroke="white" stroke-width="1" opacity="0.8" fill="none"/>
-          
-          <ellipse cx="92" cy="110" rx="5" ry="6" fill="url(#windowGradient)" stroke="#4FD8E8" stroke-width="1" class="window w2"/>
-          <ellipse cx="108" cy="110" rx="5" ry="6" fill="url(#windowGradient)" stroke="#4FD8E8" stroke-width="1" class="window w3"/>
-        </g>
-        
-        <!-- Fins -->
-        <g class="fins">
-          <!-- Left Fin -->
-          <path d="M 85 160 L 70 200 L 85 190 Z" fill="url(#finGradient)" stroke="url(#finStroke)" stroke-width="1.5" class="fin left-fin"/>
-          <path d="M 85 160 L 78 180 L 85 175 Z" fill="url(#finHighlight)" opacity="0.3"/>
-          <line x1="85" y1="170" x2="75" y2="195" stroke="rgba(79, 216, 232, 0.4)" stroke-width="1"/>
-          
-          <!-- Right Fin -->
-          <path d="M 115 160 L 130 200 L 115 190 Z" fill="url(#finGradient)" stroke="url(#finStroke)" stroke-width="1.5" class="fin right-fin"/>
-          <path d="M 115 160 L 122 180 L 115 175 Z" fill="url(#finHighlight)" opacity="0.3"/>
-          <line x1="115" y1="170" x2="125" y2="195" stroke="rgba(79, 216, 232, 0.4)" stroke-width="1"/>
-          
-          <!-- Back Fin -->
-          <ellipse cx="100" cy="165" rx="8" ry="25" fill="url(#finGradient)" stroke="url(#finStroke)" stroke-width="1" opacity="0.8" class="fin back-fin"/>
-        </g>
-        
-        <!-- Engine Nozzles -->
-        <g class="engines">
-          <!-- Main Engine -->
-          <ellipse cx="100" cy="180" rx="12" ry="8" fill="url(#engineGradient)" stroke="#3D7EDB" stroke-width="1.5"/>
-          <ellipse cx="100" cy="180" rx="8" ry="5" fill="#1a2332"/>
-          <ellipse cx="100" cy="179" rx="6" ry="3" fill="url(#engineInner)"/>
-          
-          <!-- Side Engines -->
-          <ellipse cx="88" cy="185" rx="6" ry="5" fill="url(#engineGradient)" stroke="#3D7EDB" stroke-width="1"/>
-          <ellipse cx="88" cy="185" rx="4" ry="3" fill="#1a2332"/>
-          
-          <ellipse cx="112" cy="185" rx="6" ry="5" fill="url(#engineGradient)" stroke="#3D7EDB" stroke-width="1"/>
-          <ellipse cx="112" cy="185" rx="4" ry="3" fill="#1a2332"/>
-        </g>
-        
-        <!-- Exhaust Flames -->
-        <g class="flames">
-          <!-- Main Flame -->
-          <ellipse cx="100" cy="195" rx="15" ry="20" fill="url(#flame1)" class="flame-layer f1"/>
-          <ellipse cx="100" cy="205" rx="13" ry="18" fill="url(#flame2)" class="flame-layer f2"/>
-          <ellipse cx="100" cy="215" rx="11" ry="16" fill="url(#flame3)" class="flame-layer f3"/>
-          <ellipse cx="100" cy="225" rx="9" ry="14" fill="url(#flame4)" class="flame-layer f4"/>
-          
-          <!-- Side Flames -->
-          <ellipse cx="88" cy="198" rx="8" ry="12" fill="url(#flame2)" class="flame-layer f5"/>
-          <ellipse cx="88" cy="206" rx="6" ry="10" fill="url(#flame3)" class="flame-layer f6"/>
-          
-          <ellipse cx="112" cy="198" rx="8" ry="12" fill="url(#flame2)" class="flame-layer f7"/>
-          <ellipse cx="112" cy="206" rx="6" ry="10" fill="url(#flame3)" class="flame-layer f8"/>
-        </g>
-        
-        <!-- Thrust Particles -->
-        <g class="thrust-particles">
-          <circle cx="100" cy="235" r="3" fill="#FFD700" opacity="0.8" class="particle tp1"/>
-          <circle cx="95" cy="240" r="2" fill="#F5A623" opacity="0.7" class="particle tp2"/>
-          <circle cx="105" cy="240" r="2" fill="#F5A623" opacity="0.7" class="particle tp3"/>
-          <circle cx="100" cy="245" r="2.5" fill="#D946AA" opacity="0.6" class="particle tp4"/>
-          <circle cx="92" cy="230" r="2" fill="#FFD700" opacity="0.8" class="particle tp5"/>
-          <circle cx="108" cy="230" r="2" fill="#FFD700" opacity="0.8" class="particle tp6"/>
-        </g>
-        
-        <!-- Gradients and Definitions -->
-        <defs>
-          <!-- Body Gradients -->
-          <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" style="stop-color:#2a5298;stop-opacity:1" />
-            <stop offset="30%" style="stop-color:#3D7EDB;stop-opacity:1" />
-            <stop offset="50%" style="stop-color:#4FD8E8;stop-opacity:1" />
-            <stop offset="70%" style="stop-color:#3D7EDB;stop-opacity:1" />
-            <stop offset="100%" style="stop-color:#2a5298;stop-opacity:1" />
-          </linearGradient>
-          
-          <linearGradient id="bodyStroke" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" style="stop-color:#4FD8E8;stop-opacity:0.6" />
-            <stop offset="50%" style="stop-color:#97E6FF;stop-opacity:1" />
-            <stop offset="100%" style="stop-color:#4FD8E8;stop-opacity:0.6" />
-          </linearGradient>
-          
-          <!-- Nose Gradients -->
-          <linearGradient id="noseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#F5A623;stop-opacity:1" />
-            <stop offset="50%" style="stop-color:#D946AA;stop-opacity:1" />
-            <stop offset="100%" style="stop-color:#6B3FA0;stop-opacity:1" />
-          </linearGradient>
-          
-          <linearGradient id="noseStroke" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" style="stop-color:#F5A623;stop-opacity:0.8" />
-            <stop offset="100%" style="stop-color:#D946AA;stop-opacity:0.8" />
-          </linearGradient>
-          
-          <linearGradient id="noseHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" style="stop-color:white;stop-opacity:0" />
-            <stop offset="50%" style="stop-color:white;stop-opacity:1" />
-            <stop offset="100%" style="stop-color:white;stop-opacity:0" />
-          </linearGradient>
-          
-          <!-- Window Gradient -->
-          <radialGradient id="windowGradient">
-            <stop offset="0%" style="stop-color:#97E6FF;stop-opacity:1" />
-            <stop offset="70%" style="stop-color:#4FD8E8;stop-opacity:0.8" />
-            <stop offset="100%" style="stop-color:#3D7EDB;stop-opacity:0.6" />
-          </radialGradient>
-          
-          <!-- Fin Gradients -->
-          <linearGradient id="finGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" style="stop-color:#6B3FA0;stop-opacity:1" />
-            <stop offset="50%" style="stop-color:#3D7EDB;stop-opacity:1" />
-            <stop offset="100%" style="stop-color:#2a5298;stop-opacity:1" />
-          </linearGradient>
-          
-          <linearGradient id="finStroke" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" style="stop-color:#6B3FA0;stop-opacity:0.8" />
-            <stop offset="100%" style="stop-color:#4FD8E8;stop-opacity:0.8" />
-          </linearGradient>
-          
-          <linearGradient id="finHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" style="stop-color:white;stop-opacity:0" />
-            <stop offset="50%" style="stop-color:white;stop-opacity:1" />
-            <stop offset="100%" style="stop-color:white;stop-opacity:0" />
-          </linearGradient>
-          
-          <!-- Engine Gradients -->
-          <radialGradient id="engineGradient">
-            <stop offset="0%" style="stop-color:#4FD8E8;stop-opacity:1" />
-            <stop offset="60%" style="stop-color:#3D7EDB;stop-opacity:1" />
-            <stop offset="100%" style="stop-color:#2a5298;stop-opacity:1" />
-          </radialGradient>
-          
-          <radialGradient id="engineInner">
-            <stop offset="0%" style="stop-color:#F5A623;stop-opacity:0.8" />
-            <stop offset="100%" style="stop-color:#D946AA;stop-opacity:0.4" />
-          </radialGradient>
-          
-          <!-- Flame Gradients -->
-          <linearGradient id="flame1" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
-            <stop offset="50%" style="stop-color:#F5A623;stop-opacity:0.9" />
-            <stop offset="100%" style="stop-color:#D946AA;stop-opacity:0.7" />
-          </linearGradient>
-          
-          <linearGradient id="flame2" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" style="stop-color:#F5A623;stop-opacity:0.9" />
-            <stop offset="100%" style="stop-color:#D946AA;stop-opacity:0.6" />
-          </linearGradient>
-          
-          <linearGradient id="flame3" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" style="stop-color:#D946AA;stop-opacity:0.8" />
-            <stop offset="100%" style="stop-color:#6B3FA0;stop-opacity:0.4" />
-          </linearGradient>
-          
-          <linearGradient id="flame4" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" style="stop-color:#6B3FA0;stop-opacity:0.6" />
-            <stop offset="100%" style="stop-color:#3D7EDB;stop-opacity:0.2" />
-          </linearGradient>
-          
-          <linearGradient id="shadowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" style="stop-color:#4FD8E8;stop-opacity:0" />
-            <stop offset="50%" style="stop-color:#4FD8E8;stop-opacity:1" />
-            <stop offset="100%" style="stop-color:#4FD8E8;stop-opacity:0" />
-          </linearGradient>
-        </defs>
-      </svg>
-      
-      <!-- Exhaust Smoke Particles -->
-      <div class="smoke-particle" style="--delay: 0s; --x: -15px; --size: 20px;"></div>
-      <div class="smoke-particle" style="--delay: 0.3s; --x: 15px; --size: 25px;"></div>
-      <div class="smoke-particle" style="--delay: 0.6s; --x: 0px; --size: 22px;"></div>
-      <div class="smoke-particle" style="--delay: 0.9s; --x: -20px; --size: 18px;"></div>
-      <div class="smoke-particle" style="--delay: 1.2s; --x: 20px; --size: 24px;"></div>
-      <div class="smoke-particle" style="--delay: 1.5s; --x: -10px; --size: 21px;"></div>
-      
-      <!-- Energy Particles -->
-      <div class="energy-particle" style="--delay: 0s; --angle: 45deg;"></div>
-      <div class="energy-particle" style="--delay: 0.2s; --angle: 135deg;"></div>
-      <div class="energy-particle" style="--delay: 0.4s; --angle: 225deg;"></div>
-      <div class="energy-particle" style="--delay: 0.6s; --angle: 315deg;"></div>
-      <div class="energy-particle" style="--delay: 0.8s; --angle: 90deg;"></div>
-      <div class="energy-particle" style="--delay: 1s; --angle: 180deg;"></div>
+    <!-- Star boxes for falling star animation -->
+    <div class="box-of-star1">
+      <div class="star star-position1"></div>
+      <div class="star star-position2"></div>
+      <div class="star star-position3"></div>
+      <div class="star star-position4"></div>
+      <div class="star star-position5"></div>
+      <div class="star star-position6"></div>
+      <div class="star star-position7"></div>
     </div>
-    <div class="loader-text">Launching</div>
-    <div class="loader-progress">
-      <div class="progress-bar"></div>
+    <div class="box-of-star2">
+      <div class="star star-position1"></div>
+      <div class="star star-position2"></div>
+      <div class="star star-position3"></div>
+      <div class="star star-position4"></div>
+      <div class="star star-position5"></div>
+      <div class="star star-position6"></div>
+      <div class="star star-position7"></div>
     </div>
+    <div class="box-of-star3">
+      <div class="star star-position1"></div>
+      <div class="star star-position2"></div>
+      <div class="star star-position3"></div>
+      <div class="star star-position4"></div>
+      <div class="star star-position5"></div>
+      <div class="star star-position6"></div>
+      <div class="star star-position7"></div>
+    </div>
+    <div class="box-of-star4">
+      <div class="star star-position1"></div>
+      <div class="star star-position2"></div>
+      <div class="star star-position3"></div>
+      <div class="star star-position4"></div>
+      <div class="star star-position5"></div>
+      <div class="star star-position6"></div>
+      <div class="star star-position7"></div>
+    </div>
+    <!-- Astronaut -->
+    <div data-js="astro" class="astronaut">
+      <div class="head"></div>
+      <div class="arm arm-left"></div>
+      <div class="arm arm-right"></div>
+      <div class="body">
+        <div class="panel"></div>
+      </div>
+      <div class="leg leg-left"></div>
+      <div class="leg leg-right"></div>
+      <div class="schoolbag"></div>
+    </div>
+    <div class="loader-text">Loading</div>
   </div>
 
   <!-- Aerospace 3D Elements -->
