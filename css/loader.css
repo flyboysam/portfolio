@@ -363,7 +363,7 @@
 /* Loading Text */
 .loader-text {
   position: relative;
-  margin-top: 80px;
+  margin-top: 140px;
   font-family: "Inter", sans-serif;
   font-size: 1.4rem;
   font-weight: 700;
@@ -403,7 +403,7 @@
   .loader-text {
     font-size: 1.1rem;
     letter-spacing: 0.3em;
-    margin-top: 60px;
+    margin-top: 100px;
   }
   
   .star-position4,
@@ -450,7 +450,7 @@
   .loader-text {
     font-size: 1rem;
     letter-spacing: 0.2em;
-    margin-top: 40px;
+    margin-top: 70px;
   }
   
   .box-of-star3,
