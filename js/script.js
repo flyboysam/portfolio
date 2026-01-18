@@ -252,4 +252,5 @@ spollerButtons.forEach((button) => {
   if (aerospaceElements.length > 0) {
     initAerospaceParallax();
   }
+
 })();
