@@ -123,33 +123,96 @@
   }
 }
 
-/* ************OPTIMIZED SCROLL ANIMATIONS************ */
+/* ************BUTTERY SMOOTH APPLE-STYLE ANIMATIONS************ */
+/* Ultra-smooth easing curves for premium feel */
+:root {
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-smooth-in: cubic-bezier(0.42, 0, 1, 1);
+  --ease-smooth-out: cubic-bezier(0, 0, 0.58, 1);
+  --ease-smooth-in-out: cubic-bezier(0.42, 0, 0.58, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-butter: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
 /* Using transform3d and opacity only for GPU acceleration */
 .scroll-animate {
   opacity: 0;
-  transform: translate3d(0, 40px, 0);
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  /* Only use will-change when element is about to animate */
+  transform: translate3d(0, 30px, 0);
+  transition: opacity 0.7s var(--ease-smooth-out),
+              transform 0.7s var(--ease-smooth-out);
   contain: layout style paint;
+  will-change: opacity, transform;
 }
 
 .scroll-animate.animate-in {
   opacity: 1;
   transform: translate3d(0, 0, 0);
-  /* Remove will-change after animation to free up resources */
   will-change: auto;
 }
 
-/* Fade in from bottom with blur - optimized */
+/* Premium Image Reveal with Blur - Buttery Smooth */
+.image-reveal {
+  opacity: 0;
+  filter: blur(10px);
+  transform: scale3d(1.03, 1.03, 1);
+  transition: opacity 0.9s var(--ease-smooth-out),
+              filter 0.9s var(--ease-smooth-out),
+              transform 0.9s var(--ease-smooth-out);
+  contain: layout style paint;
+  will-change: opacity, filter, transform;
+}
+
+.image-reveal.animate-in {
+  opacity: 1;
+  filter: blur(0);
+  transform: scale3d(1, 1, 1);
+  will-change: auto;
+}
+
+/* Premium Text Reveal Animation - Ultra Smooth */
+.text-reveal {
+  opacity: 0;
+  transform: translate3d(0, 15px, 0);
+  transition: opacity 0.7s var(--ease-smooth-out) 0.15s,
+              transform 0.7s var(--ease-smooth-out) 0.15s;
+  contain: layout style paint;
+  will-change: opacity, transform;
+}
+
+.text-reveal.animate-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+/* Staggered text reveal for paragraphs - Smooth */
+.text-reveal p {
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+  transition: opacity 0.6s var(--ease-smooth-out),
+              transform 0.6s var(--ease-smooth-out);
+}
+
+.text-reveal.animate-in p {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.text-reveal.animate-in p:nth-child(1) { transition-delay: 0.08s; }
+.text-reveal.animate-in p:nth-child(2) { transition-delay: 0.16s; }
+.text-reveal.animate-in p:nth-child(3) { transition-delay: 0.24s; }
+.text-reveal.animate-in p:nth-child(4) { transition-delay: 0.32s; }
+
+/* Fade in from bottom with blur - Buttery Smooth */
 .scroll-animate-blur {
   opacity: 0;
-  transform: translate3d(0, 30px, 0);
+  transform: translate3d(0, 25px, 0);
   filter: blur(8px);
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.7s var(--ease-smooth-out),
+              transform 0.7s var(--ease-smooth-out),
+              filter 0.7s var(--ease-smooth-out);
   contain: layout style paint;
+  will-change: opacity, transform, filter;
 }
 
 .scroll-animate-blur.animate-in {
@@ -159,14 +222,15 @@
   will-change: auto;
 }
 
-/* Scale and fade - optimized with transform3d */
+/* Scale and fade - Ultra Smooth */
 .scroll-animate-scale {
   opacity: 0;
-  transform: scale3d(0.95, 0.95, 1);
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale3d(0.96, 0.96, 1);
+  transition: opacity 0.7s var(--ease-smooth-out),
+              transform 0.7s var(--ease-smooth-out);
   transition-delay: var(--delay, 0s);
   contain: layout style paint;
+  will-change: opacity, transform;
 }
 
 .scroll-animate-scale.animate-in {
@@ -175,13 +239,14 @@
   will-change: auto;
 }
 
-/* Slide from left - optimized */
+/* Slide from left - Smooth */
 .scroll-animate-left {
   opacity: 0;
-  transform: translate3d(-40px, 0, 0);
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(-30px, 0, 0);
+  transition: opacity 0.7s var(--ease-smooth-out),
+              transform 0.7s var(--ease-smooth-out);
   contain: layout style paint;
+  will-change: opacity, transform;
 }
 
 .scroll-animate-left.animate-in {
@@ -190,13 +255,14 @@
   will-change: auto;
 }
 
-/* Slide from right - optimized */
+/* Slide from right - Smooth */
 .scroll-animate-right {
   opacity: 0;
-  transform: translate3d(40px, 0, 0);
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(30px, 0, 0);
+  transition: opacity 0.7s var(--ease-smooth-out),
+              transform 0.7s var(--ease-smooth-out);
   contain: layout style paint;
+  will-change: opacity, transform;
 }
 
 .scroll-animate-right.animate-in {
@@ -205,13 +271,14 @@
   will-change: auto;
 }
 
-/* Rotate and fade - optimized */
+/* Rotate and fade - Smooth */
 .scroll-animate-rotate {
   opacity: 0;
-  transform: translate3d(0, 0, 0) rotate(-3deg) scale3d(0.97, 0.97, 1);
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(0, 0, 0) rotate(-2deg) scale3d(0.98, 0.98, 1);
+  transition: opacity 0.7s var(--ease-smooth-out),
+              transform 0.7s var(--ease-smooth-out);
   contain: layout style paint;
+  will-change: opacity, transform;
 }
 
 .scroll-animate-rotate.animate-in {
@@ -279,13 +346,14 @@
   }
 }
 
-/* Scroll-triggered animation classes - optimized */
+/* Scroll-triggered animation classes - Buttery Smooth */
 .fade-in {
   opacity: 0;
-  transform: translate3d(0, 30px, 0);
-  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translate3d(0, 25px, 0);
+  transition: opacity 0.7s var(--ease-smooth-out),
+              transform 0.7s var(--ease-smooth-out);
   contain: layout style paint;
+  will-change: opacity, transform;
 }
 
 .fade-in.visible {
@@ -311,13 +379,14 @@
   transition-delay: 0.24s;
 }
 
-/* Smooth fade and scale for cards - optimized */
+/* Smooth fade and scale for cards - Buttery Smooth */
 .item-services.scroll-animate {
   opacity: 0;
-  transform: translate3d(0, 40px, 0) scale3d(0.97, 0.97, 1);
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(0, 30px, 0) scale3d(0.97, 0.97, 1);
+  transition: opacity 0.7s var(--ease-smooth-out),
+              transform 0.7s var(--ease-smooth-out);
   contain: layout style paint;
+  will-change: opacity, transform;
 }
 
 .item-services.scroll-animate.animate-in {
@@ -326,13 +395,113 @@
   will-change: auto;
 }
 
-/* About section animations - optimized */
+/* Services Page Items - Smooth Animation */
+.services-page__item.scroll-animate {
+  opacity: 0;
+  transform: translate3d(0, 40px, 0);
+  transition: opacity 0.7s var(--ease-smooth-out),
+              transform 0.7s var(--ease-smooth-out);
+  contain: layout style paint;
+  will-change: opacity, transform;
+}
+
+.services-page__item.scroll-animate.animate-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+.services-page__content.scroll-animate {
+  opacity: 0;
+  transform: translate3d(-25px, 0, 0);
+  transition: opacity 0.7s var(--ease-smooth-out),
+              transform 0.7s var(--ease-smooth-out);
+  contain: layout style paint;
+  will-change: opacity, transform;
+}
+
+.services-page__content.scroll-animate.animate-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+.services-page__img.scroll-animate {
+  opacity: 0;
+  transform: translate3d(25px, 0, 0);
+  transition: opacity 0.7s var(--ease-smooth-out),
+              transform 0.7s var(--ease-smooth-out);
+  contain: layout style paint;
+  will-change: opacity, transform;
+}
+
+.services-page__img.scroll-animate.animate-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+/* Contact Page Elements - Smooth Animation */
+.contact__info.scroll-animate,
+.contact__form-wrapper.scroll-animate {
+  opacity: 0;
+  transform: translate3d(0, 30px, 0);
+  transition: opacity 0.7s var(--ease-smooth-out),
+              transform 0.7s var(--ease-smooth-out);
+  contain: layout style paint;
+  will-change: opacity, transform;
+}
+
+.contact__info.scroll-animate.animate-in,
+.contact__form-wrapper.scroll-animate.animate-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+.connect-contact__item.scroll-animate {
+  opacity: 0;
+  transform: translate3d(-20px, 0, 0);
+  transition: opacity 0.6s var(--ease-smooth-out),
+              transform 0.6s var(--ease-smooth-out);
+  contain: layout style paint;
+  will-change: opacity, transform;
+}
+
+.connect-contact__item.scroll-animate.animate-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+.connect-contact__item:nth-child(1).scroll-animate.animate-in { transition-delay: 0.1s; }
+.connect-contact__item:nth-child(2).scroll-animate.animate-in { transition-delay: 0.2s; }
+.connect-contact__item:nth-child(3).scroll-animate.animate-in { transition-delay: 0.3s; }
+
+/* Contact Form - Smooth Animation */
+.contact__form.scroll-animate {
+  opacity: 0;
+  transform: translate3d(0, 30px, 0);
+  transition: opacity 0.7s var(--ease-smooth-out) 0.2s,
+              transform 0.7s var(--ease-smooth-out) 0.2s;
+  contain: layout style paint;
+  will-change: opacity, transform;
+}
+
+.contact__form.scroll-animate.animate-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+/* About section animations - Ultra Smooth */
 .about__content.scroll-animate {
   opacity: 0;
-  transform: translate3d(-30px, 0, 0);
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(-25px, 0, 0);
+  transition: opacity 0.7s var(--ease-smooth-out),
+              transform 0.7s var(--ease-smooth-out);
   contain: layout style paint;
+  will-change: opacity, transform;
 }
 
 .about__content.scroll-animate.animate-in {
@@ -341,12 +510,71 @@
   will-change: auto;
 }
 
+/* Titles - Smooth Animation */
+.about__title.scroll-animate,
+.services__title.scroll-animate,
+.services-page__title.scroll-animate,
+.contact__title.scroll-animate,
+.outro__title.scroll-animate,
+.testimonial__title.scroll-animate {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition: opacity 0.7s var(--ease-smooth-out),
+              transform 0.7s var(--ease-smooth-out);
+  contain: layout style paint;
+  will-change: opacity, transform;
+}
+
+.about__title.scroll-animate.animate-in,
+.services__title.scroll-animate.animate-in,
+.services-page__title.scroll-animate.animate-in,
+.contact__title.scroll-animate.animate-in,
+.outro__title.scroll-animate.animate-in,
+.testimonial__title.scroll-animate.animate-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+/* Services Row - Smooth Animation */
+.services__row.scroll-animate {
+  opacity: 0;
+  transform: translate3d(0, 30px, 0);
+  transition: opacity 0.7s var(--ease-smooth-out),
+              transform 0.7s var(--ease-smooth-out);
+  contain: layout style paint;
+  will-change: opacity, transform;
+}
+
+.services__row.scroll-animate.animate-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+/* Testimonial Item - Smooth Animation */
+.item-testimonial.scroll-animate {
+  opacity: 0;
+  transform: scale3d(0.96, 0.96, 1);
+  transition: opacity 0.6s var(--ease-smooth-out),
+              transform 0.6s var(--ease-smooth-out);
+  contain: layout style paint;
+  will-change: opacity, transform;
+}
+
+.item-testimonial.scroll-animate.animate-in {
+  opacity: 1;
+  transform: scale3d(1, 1, 1);
+  will-change: auto;
+}
+
 .about__image.scroll-animate {
   opacity: 0;
-  transform: translate3d(30px, 0, 0);
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(25px, 0, 0);
+  transition: opacity 0.7s var(--ease-smooth-out),
+              transform 0.7s var(--ease-smooth-out);
   contain: layout style paint;
+  will-change: opacity, transform;
 }
 
 .about__image.scroll-animate.animate-in {
@@ -355,13 +583,14 @@
   will-change: auto;
 }
 
-/* Testimonial section - optimized */
+/* Testimonial section - Smooth */
 .testimonial__container.scroll-animate {
   opacity: 0;
-  transform: translate3d(0, 40px, 0);
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(0, 30px, 0);
+  transition: opacity 0.7s var(--ease-smooth-out),
+              transform 0.7s var(--ease-smooth-out);
   contain: layout style paint;
+  will-change: opacity, transform;
 }
 
 .testimonial__container.scroll-animate.animate-in {
@@ -372,11 +601,12 @@
 
 .testimonial__item.scroll-animate {
   opacity: 0;
-  transform: scale3d(0.95, 0.95, 1);
-  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale3d(0.96, 0.96, 1);
+  transition: opacity 0.6s var(--ease-smooth-out),
+              transform 0.6s var(--ease-smooth-out);
   transition-delay: 0.1s;
   contain: layout style paint;
+  will-change: opacity, transform;
 }
 
 .testimonial__item.scroll-animate.animate-in {
@@ -385,13 +615,14 @@
   will-change: auto;
 }
 
-/* Outro section - optimized */
+/* Outro section - Smooth */
 .outro__container.scroll-animate {
   opacity: 0;
-  transform: translate3d(0, 40px, 0);
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(0, 30px, 0);
+  transition: opacity 0.7s var(--ease-smooth-out),
+              transform 0.7s var(--ease-smooth-out);
   contain: layout style paint;
+  will-change: opacity, transform;
 }
 
 .outro__container.scroll-animate.animate-in {
@@ -434,14 +665,99 @@
   .about,
   .services,
   .testimonial,
-  .outro {
+  .outro,
+  .services-page,
+  .contact {
     content-visibility: auto;
     contain-intrinsic-size: auto 500px;
   }
+  
+  /* Optimize images */
+  img {
+    content-visibility: auto;
+  }
+  
+  /* Reduce repaints on scroll */
+  .item-services,
+  .testimonial__item,
+  .services-page__item {
+    contain: layout style paint;
+  }
 }
 
+/* Further performance: Reduce animation complexity on lower-end devices */
+@media (prefers-reduced-motion: no-preference) and (max-width: 1024px) {
+  .aerospace-3d-container {
+    opacity: 0.2;
+  }
+  
+  .floating-planet,
+  .orbital-ring,
+  .satellite {
+    animation-duration: 30s;
+  }
+}
+
+/* Optimize scroll performance */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* GPU acceleration hints */
+.scroll-animate,
+.scroll-animate-scale,
+.image-reveal,
+.text-reveal {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Premium Smooth Scrolling */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+/* Premium Page Transition Effect - Buttery Smooth */
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 15px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.page {
+  animation: pageFadeIn 0.7s var(--ease-smooth-out);
+}
+
+/* Premium Section Dividers - Smooth */
+section:not(:first-child) {
+  position: relative;
+}
+
+section:not(:first-child)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #4FD8E8, transparent);
+  animation: sectionDivider 1.2s var(--ease-smooth-out) 0.4s forwards;
+}
+
+@keyframes sectionDivider {
+  to {
+    width: 80%;
+    max-width: 600px;
+  }
 }
 
 * {
@@ -654,17 +970,37 @@ body::before {
   z-index: 1;
 }
 
+/* Premium Button Hover Effect - Buttery Smooth */
+.button {
+  transition: all 0.4s var(--ease-smooth),
+              box-shadow 0.4s var(--ease-smooth);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform, box-shadow;
+}
+
 .button:hover {
-  box-shadow: 0 6px 25px rgba(79, 216, 232, 0.5);
-  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(79, 216, 232, 0.6),
+              0 0 40px rgba(79, 216, 232, 0.3);
+  transform: translate3d(0, -3px, 0) scale3d(1.02, 1.02, 1);
+  transition: all 0.4s var(--ease-smooth),
+              box-shadow 0.4s var(--ease-smooth);
+}
+
+.button:active {
+  transform: translate3d(0, 0, 0) scale3d(0.98, 0.98, 1);
+  transition: all 0.15s var(--ease-smooth-in);
+  will-change: auto;
 }
 
 .button:hover svg {
-  transform: translateX(5px) rotate(90deg);
+  transform: translate3d(5px, 0, 0) rotate(90deg);
+  transition: transform 0.5s var(--ease-spring);
 }
 
 .button:hover span {
-  transform: translateX(7px);
+  transform: translate3d(7px, 0, 0);
+  transition: transform 0.5s var(--ease-smooth);
 }
 
 .title {
@@ -1405,6 +1741,17 @@ body::before {
   75% { transform: translateX(5px) rotate(90deg) scale(1.2); }
 }
 
+/* Premium Image Hover Effects - Ultra Smooth */
+.about__image img,
+.services-page__img img,
+.item-services__image img {
+  transition: transform 0.7s var(--ease-smooth),
+              filter 0.7s var(--ease-smooth);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform, filter;
+}
+
 .about__image img {
   width: 100%;
   height: 100%;
@@ -1421,11 +1768,14 @@ body::before {
   box-shadow: 
     0 10px 40px rgba(0, 0, 0, 0.5),
     inset 0 0 40px rgba(79, 216, 232, 0.1);
-  transition: transform 0.3s ease;
 }
 
-.about__image:hover img {
-  transform: scale(1.02);
+.about__image:hover img,
+.services-page__img:hover img,
+.item-services__image:hover img {
+  transform: scale3d(1.05, 1.05, 1);
+  filter: brightness(1.05) contrast(1.02);
+  will-change: auto;
 }
 
 .about__title {
@@ -1732,14 +2082,27 @@ body::before {
   transition: left 0.5s ease;
 }
 
+/* Premium Card Hover Effect with 3D Depth - Buttery Smooth */
+.item-services {
+  transition: all 0.5s var(--ease-smooth),
+              box-shadow 0.5s var(--ease-smooth),
+              border-image 0.5s var(--ease-smooth);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform, box-shadow;
+}
+
 .item-services:hover {
-  transform: translateY(-8px);
+  transform: translate3d(0, -8px, 0) perspective(1000px) rotateX(2deg);
   border-image: linear-gradient(135deg, #F5A623 0%, #D946AA 100%) 1;
   box-shadow: 
-    0 12px 40px rgba(245, 166, 35, 0.25),
-    0 0 30px rgba(79, 216, 232, 0.2);
+    0 20px 60px rgba(245, 166, 35, 0.3),
+    0 0 40px rgba(79, 216, 232, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 248, 255, 0.95) 100%);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.5s var(--ease-smooth),
+              box-shadow 0.5s var(--ease-smooth);
 }
 
 .item-services:hover::before {
@@ -2184,7 +2547,8 @@ body::before {
   box-shadow:
     0 0 12px rgba(255, 122, 89, 0.18),
     inset 0 0 8px rgba(255, 122, 89, 0.06);
-  transition: all 0.4s ease;
+  transition: all 0.6s var(--ease-smooth);
+  will-change: transform, box-shadow, border-color;
 }
 
 .services-page__img:hover img {
@@ -2192,8 +2556,9 @@ body::before {
   box-shadow:
     0 0 32px rgba(77, 212, 255, 0.9),
     inset 0 0 20px rgba(77, 212, 255, 0.2);
-  transform: scale(1.03);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale3d(1.03, 1.03, 1);
+  transition: all 0.6s var(--ease-smooth);
+  will-change: auto;
 }
 
 /* ****************CONTACT PAGE****************/
@@ -2395,13 +2760,56 @@ body::before {
   opacity: 1;
 }
 
+/* Premium Focus States - Smooth */
 .form__input:focus,
 .form__textarea:focus {
   outline: none;
   border-color: #4FD8E8;
   background-color: transparent;
-  box-shadow: 0 0 12px rgba(79, 216, 232, 0.3);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 20px rgba(79, 216, 232, 0.4),
+              inset 0 0 10px rgba(79, 216, 232, 0.1);
+  transform: translate3d(0, -1px, 0);
+  transition: all 0.4s var(--ease-smooth);
+}
+
+/* Premium Link Hover Effects - Buttery Smooth */
+.menu__link,
+a:not(.button):not(.logo) {
+  transition: all 0.4s var(--ease-smooth);
+  position: relative;
+}
+
+.menu__link::after,
+a:not(.button):not(.logo)::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #4FD8E8, #D946AA);
+  transition: width 0.5s var(--ease-smooth);
+}
+
+.menu__link:hover::after,
+a:not(.button):not(.logo):hover::after {
+  width: 100%;
+}
+
+/* Premium Card Testimonial Hover - Smooth */
+.testimonial__item {
+  transition: all 0.5s var(--ease-smooth),
+              box-shadow 0.5s var(--ease-smooth);
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
+}
+
+.testimonial__item:hover {
+  transform: translate3d(0, -4px, 0) scale3d(1.02, 1.02, 1);
+  box-shadow: 0 12px 40px rgba(0, 153, 255, 0.2);
+  transition: all 0.5s var(--ease-smooth),
+              box-shadow 0.5s var(--ease-smooth);
+  will-change: auto;
 }
 
 .form__textarea {
