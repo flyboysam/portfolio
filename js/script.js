@@ -113,144 +113,123 @@ spollerButtons.forEach((button) => {
   });
 });
 
-// Apple-style scroll animations
+// Optimized scroll animations with better performance
 (function() {
   'use strict';
 
-  // Create Intersection Observer for scroll animations
+  // Check for reduced motion preference
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  
+  if (prefersReducedMotion) {
+    return; // Skip animations if user prefers reduced motion
+  }
+
+  // Optimized Intersection Observer with single threshold for better performance
   const observerOptions = {
     root: null,
-    rootMargin: '0px 0px -10% 0px',
-    threshold: [0.1, 0.3, 0.5]
+    rootMargin: '0px 0px -15% 0px', // Trigger slightly earlier
+    threshold: 0.1 // Single threshold for better performance
   };
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('animate-in');
-        // Optional: Unobserve after animation to improve performance
-        observer.unobserve(entry.target);
+        // Use requestAnimationFrame for smooth class addition
+        requestAnimationFrame(() => {
+          entry.target.classList.add('animate-in');
+          // Unobserve immediately after animation starts to reduce overhead
+          observer.unobserve(entry.target);
+        });
       }
     });
   }, observerOptions);
 
-  // Elements to animate - query each separately to ensure all are found
-  const selectors = [
-    '.about__container',
-    '.about__content',
-    '.about__image',
-    '.services__container',
-    '.testimonial__container',
-    '.testimonial__item',
-    '.outro__container',
-    '.services-page__item',
-    '.contact__container',
-    '.about__title',
-    '.services__title',
-    '.testimonial__title'
-  ];
+  // Batch DOM queries and setup
+  function initScrollAnimations() {
+    // Elements to animate - batch query for better performance
+    const selectors = [
+      '.about__container',
+      '.about__content',
+      '.about__image',
+      '.services__container',
+      '.testimonial__container',
+      '.testimonial__item',
+      '.outro__container',
+      '.services-page__item',
+      '.contact__container'
+    ];
 
-  selectors.forEach(selector => {
-    const elements = document.querySelectorAll(selector);
-    elements.forEach(el => {
-      if (el) {
-        el.classList.add('scroll-animate');
-        observer.observe(el);
+    // Use document fragment for batch processing
+    selectors.forEach(selector => {
+      const elements = document.querySelectorAll(selector);
+      elements.forEach(el => {
+        if (el && !el.classList.contains('scroll-animate')) {
+          el.classList.add('scroll-animate');
+          observer.observe(el);
+        }
+      });
+    });
+
+    // Staggered animation for service items - optimized
+    const serviceItems = document.querySelectorAll('.item-services');
+    serviceItems.forEach((item, index) => {
+      if (item && !item.classList.contains('scroll-animate-scale')) {
+        // Use CSS custom property instead of inline style for better performance
+        item.style.setProperty('--delay', `${index * 0.1}s`);
+        item.classList.add('scroll-animate-scale');
+        observer.observe(item);
       }
     });
-  });
+  }
 
-  // Staggered animation for service items
-  const serviceItems = document.querySelectorAll('.item-services');
-  serviceItems.forEach((item, index) => {
-    if (item) {
-      item.style.transitionDelay = `${index * 0.15}s`;
-      item.classList.add('scroll-animate-scale');
-      observer.observe(item);
-    }
-  });
+  // Initialize animations after DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrollAnimations);
+  } else {
+    initScrollAnimations();
+  }
 
-  // Subtle parallax effect for hero sections (Apple-style)
-  let lastScrollTop = 0;
-  const parallaxElements = document.querySelectorAll('.main__container, .main__caption, .main__title, .main__text, .main__button');
+  // Optimized parallax effect - only for hero section, reduced complexity
+  let parallaxTicking = false;
+  let lastScrollY = 0;
+  const parallaxElements = document.querySelectorAll('.main__container');
   
   function updateParallax() {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    const deltaY = scrollY - lastScrollY;
     
-    parallaxElements.forEach((el, index) => {
-      if (el && scrollTop < window.innerHeight * 1.5) {
-        const speed = 0.3 + (index * 0.05);
-        const yPos = -(scrollTop * speed * 0.3);
-        el.style.transform = `translateY(${yPos}px)`;
-        
-        // Subtle opacity fade
-        if (scrollTop < window.innerHeight) {
-          const opacity = Math.max(0.5, 1 - (scrollTop / window.innerHeight) * 0.3);
-          el.style.opacity = opacity;
+    // Only update if scroll change is significant (reduces unnecessary updates)
+    if (Math.abs(deltaY) < 1 && scrollY > 0) {
+      parallaxTicking = false;
+      return;
+    }
+    
+    if (scrollY < window.innerHeight * 1.2) {
+      parallaxElements.forEach((el) => {
+        if (el) {
+          // Use transform3d for GPU acceleration
+          const yPos = -(scrollY * 0.15);
+          el.style.transform = `translate3d(0, ${yPos}px, 0)`;
         }
-      }
-    });
+      });
+    }
     
-    lastScrollTop = scrollTop;
+    lastScrollY = scrollY;
+    parallaxTicking = false;
   }
 
-  // Smooth scroll behavior with easing
-  function initParallax() {
-    let ticking = false;
-    
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          updateParallax();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }, { passive: true });
-  }
-
-  // Only initialize parallax if elements exist
+  // Throttled scroll handler with passive listener
   if (parallaxElements.length > 0) {
-    initParallax();
-  }
-
-  // Animate 3D aerospace elements based on scroll (subtle effect)
-  const aerospaceElements = document.querySelectorAll('.floating-planet, .orbital-ring, .satellite, .space-station, .star-3d, .glow-orb');
-  
-  function updateAerospaceParallax() {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const scrollPercent = scrollTop / (document.documentElement.scrollHeight - window.innerHeight);
-    
-    aerospaceElements.forEach((el, index) => {
-      if (el) {
-        // Very subtle speeds for different elements
-        const speed = 0.02 + (index % 3) * 0.01;
-        const rotation = scrollPercent * 180 * speed;
-        const translateY = scrollTop * speed * 0.1;
-        
-        // Apply subtle transforms while preserving existing animations
-        el.style.transform = `translateY(${translateY}px) rotate(${rotation}deg)`;
-      }
-    });
-  }
-
-  function initAerospaceParallax() {
-    let ticking = false;
-    
     window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          updateAerospaceParallax();
-          ticking = false;
-        });
-        ticking = true;
+      if (!parallaxTicking) {
+        window.requestAnimationFrame(updateParallax);
+        parallaxTicking = true;
       }
     }, { passive: true });
   }
 
-  // Only initialize aerospace parallax if elements exist
-  if (aerospaceElements.length > 0) {
-    initAerospaceParallax();
-  }
+  // Disable aerospace parallax on scroll - let CSS animations handle it
+  // This reduces JavaScript overhead significantly
+  // The CSS animations are already smooth and performant
 
 })();
