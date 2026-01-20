@@ -137,11 +137,11 @@
 /* Using transform3d and opacity only for GPU acceleration */
 .scroll-animate {
   opacity: 0;
-  transform: translate3d(0, 30px, 0);
-  transition: opacity 0.7s var(--ease-smooth-out),
-              transform 0.7s var(--ease-smooth-out);
+  transform: translate3d(0, 25px, 0);
+  transition: opacity 0.8s var(--ease-smooth-out),
+              transform 0.8s var(--ease-smooth-out);
   contain: layout style paint;
-  will-change: opacity, transform;
+  /* Only set will-change when about to animate */
 }
 
 .scroll-animate.animate-in {
@@ -150,15 +150,24 @@
   will-change: auto;
 }
 
+/* Set will-change only when element is about to be observed */
+.scroll-animate:not(.animate-in) {
+  will-change: opacity, transform;
+}
+
 /* Premium Image Reveal with Blur - Buttery Smooth */
 .image-reveal {
   opacity: 0;
-  filter: blur(10px);
-  transform: scale3d(1.03, 1.03, 1);
-  transition: opacity 0.9s var(--ease-smooth-out),
-              filter 0.9s var(--ease-smooth-out),
-              transform 0.9s var(--ease-smooth-out);
+  filter: blur(8px);
+  transform: scale3d(1.02, 1.02, 1);
+  transition: opacity 0.8s var(--ease-smooth-out),
+              filter 0.8s var(--ease-smooth-out),
+              transform 0.8s var(--ease-smooth-out);
   contain: layout style paint;
+  /* Optimize: only set will-change when needed */
+}
+
+.image-reveal:not(.animate-in) {
   will-change: opacity, filter, transform;
 }
 
@@ -382,10 +391,13 @@
 /* Smooth fade and scale for cards - Buttery Smooth */
 .item-services.scroll-animate {
   opacity: 0;
-  transform: translate3d(0, 30px, 0) scale3d(0.97, 0.97, 1);
-  transition: opacity 0.7s var(--ease-smooth-out),
-              transform 0.7s var(--ease-smooth-out);
+  transform: translate3d(0, 25px, 0) scale3d(0.98, 0.98, 1);
+  transition: opacity 0.8s var(--ease-smooth-out),
+              transform 0.8s var(--ease-smooth-out);
   contain: layout style paint;
+}
+
+.item-services.scroll-animate:not(.animate-in) {
   will-change: opacity, transform;
 }
 
@@ -393,6 +405,26 @@
   opacity: 1;
   transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
   will-change: auto;
+}
+
+/* Home page specific optimizations */
+.services__container.scroll-animate {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition: opacity 0.8s var(--ease-smooth-out) 0.1s,
+              transform 0.8s var(--ease-smooth-out) 0.1s;
+  contain: layout style paint;
+}
+
+.services__container.scroll-animate.animate-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+/* Prevent layout shifts during animation */
+.services__row.scroll-animate {
+  min-height: 1px; /* Prevent collapse */
 }
 
 /* Services Page Items - Smooth Animation */
@@ -497,10 +529,13 @@
 /* About section animations - Ultra Smooth */
 .about__content.scroll-animate {
   opacity: 0;
-  transform: translate3d(-25px, 0, 0);
-  transition: opacity 0.7s var(--ease-smooth-out),
-              transform 0.7s var(--ease-smooth-out);
+  transform: translate3d(-20px, 0, 0);
+  transition: opacity 0.8s var(--ease-smooth-out),
+              transform 0.8s var(--ease-smooth-out);
   contain: layout style paint;
+}
+
+.about__content.scroll-animate:not(.animate-in) {
   will-change: opacity, transform;
 }
 
@@ -539,10 +574,14 @@
 /* Services Row - Smooth Animation */
 .services__row.scroll-animate {
   opacity: 0;
-  transform: translate3d(0, 30px, 0);
-  transition: opacity 0.7s var(--ease-smooth-out),
-              transform 0.7s var(--ease-smooth-out);
+  transform: translate3d(0, 20px, 0);
+  transition: opacity 0.8s var(--ease-smooth-out) 0.1s,
+              transform 0.8s var(--ease-smooth-out) 0.1s;
   contain: layout style paint;
+  min-height: 1px; /* Prevent layout shift */
+}
+
+.services__row.scroll-animate:not(.animate-in) {
   will-change: opacity, transform;
 }
 
@@ -570,10 +609,13 @@
 
 .about__image.scroll-animate {
   opacity: 0;
-  transform: translate3d(25px, 0, 0);
-  transition: opacity 0.7s var(--ease-smooth-out),
-              transform 0.7s var(--ease-smooth-out);
+  transform: translate3d(20px, 0, 0);
+  transition: opacity 0.8s var(--ease-smooth-out),
+              transform 0.8s var(--ease-smooth-out);
   contain: layout style paint;
+}
+
+.about__image.scroll-animate:not(.animate-in) {
   will-change: opacity, transform;
 }
 
@@ -583,13 +625,35 @@
   will-change: auto;
 }
 
+/* Home page about section - Prevent jerky scroll */
+.about-home .about__container.scroll-animate {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition: opacity 0.8s var(--ease-smooth-out),
+              transform 0.8s var(--ease-smooth-out);
+}
+
+.about-home .about__container.scroll-animate.animate-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Stagger nested animations on home page to prevent jerky appearance */
+.about-home .about__content.scroll-animate,
+.about-home .about__image.scroll-animate {
+  transition-delay: 0.15s;
+}
+
 /* Testimonial section - Smooth */
 .testimonial__container.scroll-animate {
   opacity: 0;
-  transform: translate3d(0, 30px, 0);
-  transition: opacity 0.7s var(--ease-smooth-out),
-              transform 0.7s var(--ease-smooth-out);
+  transform: translate3d(0, 20px, 0);
+  transition: opacity 0.8s var(--ease-smooth-out),
+              transform 0.8s var(--ease-smooth-out);
   contain: layout style paint;
+}
+
+.testimonial__container.scroll-animate:not(.animate-in) {
   will-change: opacity, transform;
 }
 
@@ -601,11 +665,14 @@
 
 .testimonial__item.scroll-animate {
   opacity: 0;
-  transform: scale3d(0.96, 0.96, 1);
-  transition: opacity 0.6s var(--ease-smooth-out),
-              transform 0.6s var(--ease-smooth-out);
-  transition-delay: 0.1s;
+  transform: scale3d(0.98, 0.98, 1);
+  transition: opacity 0.7s var(--ease-smooth-out),
+              transform 0.7s var(--ease-smooth-out);
+  transition-delay: 0.15s;
   contain: layout style paint;
+}
+
+.testimonial__item.scroll-animate:not(.animate-in) {
   will-change: opacity, transform;
 }
 
@@ -718,6 +785,38 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
+  /* Optimize scroll performance */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent scroll jank - Optimize rendering during scroll */
+body {
+  /* Force hardware acceleration */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  /* Prevent layout shifts */
+  overflow-x: hidden;
+  /* Smooth scrolling optimization */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optimize sections during scroll */
+section {
+  contain: layout style paint;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  /* Prevent repaints during scroll */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Home page specific optimizations */
+.about-home,
+.services {
+  /* Isolate rendering to prevent scroll jank */
+  isolation: isolate;
+  contain: layout style paint;
 }
 
 /* Premium Page Transition Effect - Buttery Smooth */
@@ -1378,6 +1477,11 @@ body::before {
   transform: translate(-50%, -50%);
   z-index: 0;
   pointer-events: none;
+  /* Optimize video for smooth scroll */
+  will-change: auto;
+  transform: translate3d(-50%, -50%, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .main::before {

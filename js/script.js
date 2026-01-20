@@ -133,20 +133,47 @@ spollerButtons.forEach((button) => {
   let lastScrollY = 0;
   let scrollDirection = 0;
 
-  // Optimized Intersection Observer - single instance for all animations
+  // Optimized Intersection Observer - batched updates for smooth performance
   const observerOptions = {
     root: null,
-    rootMargin: '0px 0px -10% 0px',
-    threshold: 0.05 // Lower threshold for earlier trigger
+    rootMargin: '0px 0px -15% 0px', // Trigger earlier to avoid jerky appearance
+    threshold: 0.1 // Single threshold for better performance
+  };
+
+  // Batch animation updates to prevent jerky scroll
+  let animationQueue = [];
+  let isProcessingQueue = false;
+
+  const processAnimationQueue = () => {
+    if (animationQueue.length === 0) {
+      isProcessingQueue = false;
+      return;
+    }
+    
+    isProcessingQueue = true;
+    const batch = animationQueue.splice(0, 5); // Process 5 at a time
+    
+    requestAnimationFrame(() => {
+      batch.forEach(entry => {
+        entry.target.classList.add('animate-in');
+        observer.unobserve(entry.target);
+      });
+      
+      if (animationQueue.length > 0) {
+        setTimeout(processAnimationQueue, 16); // ~60fps
+      } else {
+        isProcessingQueue = false;
+      }
+    });
   };
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        requestAnimationFrame(() => {
-          entry.target.classList.add('animate-in');
-          observer.unobserve(entry.target);
-        });
+      if (entry.isIntersecting && !entry.target.classList.contains('animate-in')) {
+        animationQueue.push(entry);
+        if (!isProcessingQueue) {
+          processAnimationQueue();
+        }
       }
     });
   }, observerOptions);
@@ -166,41 +193,44 @@ spollerButtons.forEach((button) => {
     });
   };
 
-  // Initialize all scroll animations - Comprehensive for all pages
+  // Initialize all scroll animations - Optimized to prevent jerky scroll
   function initScrollAnimations() {
-    // Main sections - All pages
-    const selectors = [
+    // Main sections - Prioritize containers over nested elements for smoother performance
+    const containerSelectors = [
       '.about__container',
-      '.about__content',
-      '.about__image',
-      '.about__title',
-      '.about__subtitle',
-      '.about__institution',
       '.services__container',
-      '.services__title',
-      '.services__row',
       '.testimonial__container',
-      '.testimonial__title',
-      '.testimonial__item',
-      '.item-testimonial',
       '.outro__container',
-      '.outro__title',
-      '.outro__text',
       '.services-page__item',
       '.services-page__container',
-      '.services-page__content',
-      '.services-page__title',
-      '.services-page__img',
-      '.contact__container',
-      '.contact__info',
-      '.contact__form-wrapper',
-      '.contact__title',
-      '.contact__form',
-      '.connect-contact',
-      '.connect-contact__item'
+      '.contact__container'
     ];
 
-    selectors.forEach(selector => {
+    // Content elements - Animate separately for staggered effect
+    const contentSelectors = [
+      '.about__content',
+      '.about__image',
+      '.services__row',
+      '.testimonial__item',
+      '.item-testimonial',
+      '.services-page__content',
+      '.services-page__img',
+      '.contact__info',
+      '.contact__form-wrapper'
+    ];
+
+    // Title elements - Animate with slight delay
+    const titleSelectors = [
+      '.about__title',
+      '.services__title',
+      '.testimonial__title',
+      '.outro__title',
+      '.services-page__title',
+      '.contact__title'
+    ];
+
+    // Animate containers first
+    containerSelectors.forEach(selector => {
       document.querySelectorAll(selector).forEach(el => {
         if (el && !el.classList.contains('scroll-animate')) {
           el.classList.add('scroll-animate');
@@ -209,10 +239,43 @@ spollerButtons.forEach((button) => {
       });
     });
 
-    // Service items with staggered delays - Home page
+    // For home page: Only animate containers, skip nested elements to prevent jerky scroll
+    const isHomePage = document.querySelector('.about-home, .page__services.services');
+    
+    if (!isHomePage) {
+      // On other pages, animate content elements
+      setTimeout(() => {
+        contentSelectors.forEach(selector => {
+          document.querySelectorAll(selector).forEach(el => {
+            const parentAnimated = el.closest('.scroll-animate');
+            // Only animate if not inside an animated container
+            if (el && !el.classList.contains('scroll-animate') && !parentAnimated) {
+              el.classList.add('scroll-animate');
+              observer.observe(el);
+            }
+          });
+        });
+      }, 100);
+    }
+
+    // Animate standalone titles (not nested in containers)
+    setTimeout(() => {
+      titleSelectors.forEach(selector => {
+        document.querySelectorAll(selector).forEach(el => {
+          const parentAnimated = el.closest('.scroll-animate');
+          if (el && !el.classList.contains('scroll-animate') && !parentAnimated) {
+            el.classList.add('scroll-animate');
+            observer.observe(el);
+          }
+        });
+      });
+    }, 150);
+
+    // Service items with staggered delays - Home page (optimized)
     document.querySelectorAll('.item-services').forEach((item, index) => {
       if (item && !item.classList.contains('scroll-animate-scale')) {
-        item.style.setProperty('--delay', `${index * 0.08}s`);
+        // Increased stagger delay to prevent jerky scroll
+        item.style.setProperty('--delay', `${index * 0.15}s`);
         item.classList.add('scroll-animate-scale');
         observer.observe(item);
       }
@@ -264,22 +327,27 @@ spollerButtons.forEach((button) => {
     setTimeout(checkInitialViewport, 200);
   }
 
-  // Optimized parallax - only hero section
+  // Optimized parallax - only hero section, disabled for smoother scroll
   const parallaxElements = document.querySelectorAll('.main__container');
+  let parallaxEnabled = false; // Disable parallax by default for smoother scroll
   
   function updateScrollEffects() {
     const scrollY = window.pageYOffset || document.documentElement.scrollTop;
     const deltaY = scrollY - lastScrollY;
-    scrollDirection = deltaY > 0 ? 1 : deltaY < 0 ? -1 : scrollDirection;
     
-    // Parallax only for hero (first viewport) - Ultra smooth
-    if (scrollY < window.innerHeight * 1.2 && parallaxElements.length > 0) {
+    // Only update if scroll change is significant (reduces unnecessary updates)
+    if (Math.abs(deltaY) < 2 && scrollY > 0) {
+      scrollTicking = false;
+      return;
+    }
+    
+    // Parallax only for hero (first viewport) - Very subtle, only if enabled
+    if (parallaxEnabled && scrollY < window.innerHeight * 1.2 && parallaxElements.length > 0) {
       parallaxElements.forEach((el) => {
         if (el) {
-          // Use smooth easing for parallax movement
-          const yPos = -(scrollY * 0.08); // Further reduced for buttery smoothness
+          // Minimal parallax for ultra-smooth feel
+          const yPos = -(scrollY * 0.05);
           el.style.transform = `translate3d(0, ${yPos}px, 0)`;
-          el.style.transition = 'transform 0.1s linear'; // Smooth interpolation
         }
       });
     }
@@ -288,12 +356,19 @@ spollerButtons.forEach((button) => {
     scrollTicking = false;
   }
 
-  // Single unified scroll handler
+  // Throttled scroll handler with better performance
+  let scrollTimeout;
   window.addEventListener('scroll', () => {
     if (!scrollTicking) {
       requestAnimationFrame(updateScrollEffects);
       scrollTicking = true;
     }
+    
+    // Clear any pending timeouts
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      scrollTicking = false;
+    }, 150);
   }, { passive: true });
 
   // Premium micro-interactions
