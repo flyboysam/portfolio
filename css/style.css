@@ -123,8 +123,8 @@
   }
 }
 
-/* ************BUTTERY SMOOTH APPLE-STYLE ANIMATIONS************ */
-/* Ultra-smooth easing curves for premium feel */
+/* ************ULTRA-SMOOTH APPLE-STYLE ANIMATIONS************ */
+/* Premium easing curves for buttery smooth feel */
 :root {
   --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --ease-smooth-in: cubic-bezier(0.42, 0, 1, 1);
@@ -132,14 +132,18 @@
   --ease-smooth-in-out: cubic-bezier(0.42, 0, 0.58, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-butter: cubic-bezier(0.25, 0.1, 0.25, 1);
+  /* Ultra-smooth easing for premium feel */
+  --ease-ultra-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-ultra-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-ultra-in: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Using transform3d and opacity only for GPU acceleration */
+/* Using transform3d and opacity only for GPU acceleration - Ultra Smooth */
 .scroll-animate {
   opacity: 0;
-  transform: translate3d(0, 25px, 0);
-  transition: opacity 0.8s var(--ease-smooth-out),
-              transform 0.8s var(--ease-smooth-out);
+  transform: translate3d(0, 20px, 0);
+  transition: opacity 0.9s var(--ease-ultra-out),
+              transform 0.9s var(--ease-ultra-out);
   contain: layout style paint;
   /* Only set will-change when about to animate */
 }
@@ -155,14 +159,14 @@
   will-change: opacity, transform;
 }
 
-/* Premium Image Reveal with Blur - Buttery Smooth */
+/* Premium Image Reveal with Blur - Ultra Smooth */
 .image-reveal {
   opacity: 0;
-  filter: blur(8px);
-  transform: scale3d(1.02, 1.02, 1);
-  transition: opacity 0.8s var(--ease-smooth-out),
-              filter 0.8s var(--ease-smooth-out),
-              transform 0.8s var(--ease-smooth-out);
+  filter: blur(6px);
+  transform: scale3d(1.01, 1.01, 1);
+  transition: opacity 1s var(--ease-ultra-out),
+              filter 1s var(--ease-ultra-out),
+              transform 1s var(--ease-ultra-out);
   contain: layout style paint;
   /* Optimize: only set will-change when needed */
 }
@@ -181,9 +185,9 @@
 /* Premium Text Reveal Animation - Ultra Smooth */
 .text-reveal {
   opacity: 0;
-  transform: translate3d(0, 15px, 0);
-  transition: opacity 0.7s var(--ease-smooth-out) 0.15s,
-              transform 0.7s var(--ease-smooth-out) 0.15s;
+  transform: translate3d(0, 12px, 0);
+  transition: opacity 0.9s var(--ease-ultra-out) 0.2s,
+              transform 0.9s var(--ease-ultra-out) 0.2s;
   contain: layout style paint;
   will-change: opacity, transform;
 }
@@ -194,12 +198,12 @@
   will-change: auto;
 }
 
-/* Staggered text reveal for paragraphs - Smooth */
+/* Staggered text reveal for paragraphs - Ultra Smooth */
 .text-reveal p {
   opacity: 0;
-  transform: translate3d(0, 12px, 0);
-  transition: opacity 0.6s var(--ease-smooth-out),
-              transform 0.6s var(--ease-smooth-out);
+  transform: translate3d(0, 10px, 0);
+  transition: opacity 0.8s var(--ease-ultra-out),
+              transform 0.8s var(--ease-ultra-out);
 }
 
 .text-reveal.animate-in p {
@@ -207,19 +211,19 @@
   transform: translate3d(0, 0, 0);
 }
 
-.text-reveal.animate-in p:nth-child(1) { transition-delay: 0.08s; }
-.text-reveal.animate-in p:nth-child(2) { transition-delay: 0.16s; }
-.text-reveal.animate-in p:nth-child(3) { transition-delay: 0.24s; }
-.text-reveal.animate-in p:nth-child(4) { transition-delay: 0.32s; }
+.text-reveal.animate-in p:nth-child(1) { transition-delay: 0.1s; }
+.text-reveal.animate-in p:nth-child(2) { transition-delay: 0.2s; }
+.text-reveal.animate-in p:nth-child(3) { transition-delay: 0.3s; }
+.text-reveal.animate-in p:nth-child(4) { transition-delay: 0.4s; }
 
 /* Fade in from bottom with blur - Buttery Smooth */
 .scroll-animate-blur {
   opacity: 0;
-  transform: translate3d(0, 25px, 0);
-  filter: blur(8px);
-  transition: opacity 0.7s var(--ease-smooth-out),
-              transform 0.7s var(--ease-smooth-out),
-              filter 0.7s var(--ease-smooth-out);
+  transform: translate3d(0, 20px, 0);
+  filter: blur(6px);
+  transition: opacity 0.9s var(--ease-ultra-out),
+              transform 0.9s var(--ease-ultra-out),
+              filter 0.9s var(--ease-ultra-out);
   contain: layout style paint;
   will-change: opacity, transform, filter;
 }
@@ -234,9 +238,9 @@
 /* Scale and fade - Ultra Smooth */
 .scroll-animate-scale {
   opacity: 0;
-  transform: scale3d(0.96, 0.96, 1);
-  transition: opacity 0.7s var(--ease-smooth-out),
-              transform 0.7s var(--ease-smooth-out);
+  transform: scale3d(0.97, 0.97, 1);
+  transition: opacity 0.9s var(--ease-ultra-out),
+              transform 0.9s var(--ease-ultra-out);
   transition-delay: var(--delay, 0s);
   contain: layout style paint;
   will-change: opacity, transform;
@@ -251,9 +255,9 @@
 /* Slide from left - Smooth */
 .scroll-animate-left {
   opacity: 0;
-  transform: translate3d(-30px, 0, 0);
-  transition: opacity 0.7s var(--ease-smooth-out),
-              transform 0.7s var(--ease-smooth-out);
+  transform: translate3d(-20px, 0, 0);
+  transition: opacity 0.9s var(--ease-ultra-out),
+              transform 0.9s var(--ease-ultra-out);
   contain: layout style paint;
   will-change: opacity, transform;
 }
@@ -264,12 +268,12 @@
   will-change: auto;
 }
 
-/* Slide from right - Smooth */
+/* Slide from right - Ultra Smooth */
 .scroll-animate-right {
   opacity: 0;
-  transform: translate3d(30px, 0, 0);
-  transition: opacity 0.7s var(--ease-smooth-out),
-              transform 0.7s var(--ease-smooth-out);
+  transform: translate3d(20px, 0, 0);
+  transition: opacity 0.9s var(--ease-ultra-out),
+              transform 0.9s var(--ease-ultra-out);
   contain: layout style paint;
   will-change: opacity, transform;
 }
@@ -280,12 +284,12 @@
   will-change: auto;
 }
 
-/* Rotate and fade - Smooth */
+/* Rotate and fade - Ultra Smooth */
 .scroll-animate-rotate {
   opacity: 0;
   transform: translate3d(0, 0, 0) rotate(-2deg) scale3d(0.98, 0.98, 1);
-  transition: opacity 0.7s var(--ease-smooth-out),
-              transform 0.7s var(--ease-smooth-out);
+  transition: opacity 0.9s var(--ease-ultra-out),
+              transform 0.9s var(--ease-ultra-out);
   contain: layout style paint;
   will-change: opacity, transform;
 }
@@ -355,12 +359,12 @@
   }
 }
 
-/* Scroll-triggered animation classes - Buttery Smooth */
+/* Scroll-triggered animation classes - Ultra Smooth */
 .fade-in {
   opacity: 0;
-  transform: translate3d(0, 25px, 0);
-  transition: opacity 0.7s var(--ease-smooth-out),
-              transform 0.7s var(--ease-smooth-out);
+  transform: translate3d(0, 20px, 0);
+  transition: opacity 0.9s var(--ease-ultra-out),
+              transform 0.9s var(--ease-ultra-out);
   contain: layout style paint;
   will-change: opacity, transform;
 }
@@ -388,12 +392,12 @@
   transition-delay: 0.24s;
 }
 
-/* Smooth fade and scale for cards - Buttery Smooth */
+/* Smooth fade and scale for cards - Ultra Smooth */
 .item-services.scroll-animate {
   opacity: 0;
-  transform: translate3d(0, 25px, 0) scale3d(0.98, 0.98, 1);
-  transition: opacity 0.8s var(--ease-smooth-out),
-              transform 0.8s var(--ease-smooth-out);
+  transform: translate3d(0, 20px, 0) scale3d(0.98, 0.98, 1);
+  transition: opacity 0.9s var(--ease-ultra-out),
+              transform 0.9s var(--ease-ultra-out);
   contain: layout style paint;
 }
 
@@ -410,9 +414,9 @@
 /* Home page specific optimizations */
 .services__container.scroll-animate {
   opacity: 0;
-  transform: translate3d(0, 20px, 0);
-  transition: opacity 0.8s var(--ease-smooth-out) 0.1s,
-              transform 0.8s var(--ease-smooth-out) 0.1s;
+  transform: translate3d(0, 18px, 0);
+  transition: opacity 0.9s var(--ease-ultra-out) 0.15s,
+              transform 0.9s var(--ease-ultra-out) 0.15s;
   contain: layout style paint;
 }
 
@@ -430,9 +434,9 @@
 /* Services Page Items - Smooth Animation */
 .services-page__item.scroll-animate {
   opacity: 0;
-  transform: translate3d(0, 40px, 0);
-  transition: opacity 0.7s var(--ease-smooth-out),
-              transform 0.7s var(--ease-smooth-out);
+  transform: translate3d(0, 25px, 0);
+  transition: opacity 0.9s var(--ease-ultra-out),
+              transform 0.9s var(--ease-ultra-out);
   contain: layout style paint;
   will-change: opacity, transform;
 }
@@ -445,9 +449,9 @@
 
 .services-page__content.scroll-animate {
   opacity: 0;
-  transform: translate3d(-25px, 0, 0);
-  transition: opacity 0.7s var(--ease-smooth-out),
-              transform 0.7s var(--ease-smooth-out);
+  transform: translate3d(-20px, 0, 0);
+  transition: opacity 0.9s var(--ease-ultra-out),
+              transform 0.9s var(--ease-ultra-out);
   contain: layout style paint;
   will-change: opacity, transform;
 }
@@ -460,9 +464,9 @@
 
 .services-page__img.scroll-animate {
   opacity: 0;
-  transform: translate3d(25px, 0, 0);
-  transition: opacity 0.7s var(--ease-smooth-out),
-              transform 0.7s var(--ease-smooth-out);
+  transform: translate3d(20px, 0, 0);
+  transition: opacity 0.9s var(--ease-ultra-out),
+              transform 0.9s var(--ease-ultra-out);
   contain: layout style paint;
   will-change: opacity, transform;
 }
@@ -473,13 +477,13 @@
   will-change: auto;
 }
 
-/* Contact Page Elements - Smooth Animation */
+/* Contact Page Elements - Ultra Smooth Animation */
 .contact__info.scroll-animate,
 .contact__form-wrapper.scroll-animate {
   opacity: 0;
-  transform: translate3d(0, 30px, 0);
-  transition: opacity 0.7s var(--ease-smooth-out),
-              transform 0.7s var(--ease-smooth-out);
+  transform: translate3d(0, 20px, 0);
+  transition: opacity 0.9s var(--ease-ultra-out),
+              transform 0.9s var(--ease-ultra-out);
   contain: layout style paint;
   will-change: opacity, transform;
 }
@@ -493,9 +497,9 @@
 
 .connect-contact__item.scroll-animate {
   opacity: 0;
-  transform: translate3d(-20px, 0, 0);
-  transition: opacity 0.6s var(--ease-smooth-out),
-              transform 0.6s var(--ease-smooth-out);
+  transform: translate3d(-18px, 0, 0);
+  transition: opacity 0.8s var(--ease-ultra-out),
+              transform 0.8s var(--ease-ultra-out);
   contain: layout style paint;
   will-change: opacity, transform;
 }
@@ -506,16 +510,16 @@
   will-change: auto;
 }
 
-.connect-contact__item:nth-child(1).scroll-animate.animate-in { transition-delay: 0.1s; }
-.connect-contact__item:nth-child(2).scroll-animate.animate-in { transition-delay: 0.2s; }
-.connect-contact__item:nth-child(3).scroll-animate.animate-in { transition-delay: 0.3s; }
+.connect-contact__item:nth-child(1).scroll-animate.animate-in { transition-delay: 0.15s; }
+.connect-contact__item:nth-child(2).scroll-animate.animate-in { transition-delay: 0.3s; }
+.connect-contact__item:nth-child(3).scroll-animate.animate-in { transition-delay: 0.45s; }
 
-/* Contact Form - Smooth Animation */
+/* Contact Form - Ultra Smooth Animation */
 .contact__form.scroll-animate {
   opacity: 0;
-  transform: translate3d(0, 30px, 0);
-  transition: opacity 0.7s var(--ease-smooth-out) 0.2s,
-              transform 0.7s var(--ease-smooth-out) 0.2s;
+  transform: translate3d(0, 20px, 0);
+  transition: opacity 0.9s var(--ease-ultra-out) 0.25s,
+              transform 0.9s var(--ease-ultra-out) 0.25s;
   contain: layout style paint;
   will-change: opacity, transform;
 }
@@ -529,9 +533,9 @@
 /* About section animations - Ultra Smooth */
 .about__content.scroll-animate {
   opacity: 0;
-  transform: translate3d(-20px, 0, 0);
-  transition: opacity 0.8s var(--ease-smooth-out),
-              transform 0.8s var(--ease-smooth-out);
+  transform: translate3d(-18px, 0, 0);
+  transition: opacity 0.9s var(--ease-ultra-out),
+              transform 0.9s var(--ease-ultra-out);
   contain: layout style paint;
 }
 
@@ -553,9 +557,9 @@
 .outro__title.scroll-animate,
 .testimonial__title.scroll-animate {
   opacity: 0;
-  transform: translate3d(0, 20px, 0);
-  transition: opacity 0.7s var(--ease-smooth-out),
-              transform 0.7s var(--ease-smooth-out);
+  transform: translate3d(0, 15px, 0);
+  transition: opacity 0.9s var(--ease-ultra-out),
+              transform 0.9s var(--ease-ultra-out);
   contain: layout style paint;
   will-change: opacity, transform;
 }
@@ -571,12 +575,12 @@
   will-change: auto;
 }
 
-/* Services Row - Smooth Animation */
+/* Services Row - Ultra Smooth Animation */
 .services__row.scroll-animate {
   opacity: 0;
-  transform: translate3d(0, 20px, 0);
-  transition: opacity 0.8s var(--ease-smooth-out) 0.1s,
-              transform 0.8s var(--ease-smooth-out) 0.1s;
+  transform: translate3d(0, 18px, 0);
+  transition: opacity 0.9s var(--ease-ultra-out) 0.15s,
+              transform 0.9s var(--ease-ultra-out) 0.15s;
   contain: layout style paint;
   min-height: 1px; /* Prevent layout shift */
 }
@@ -591,12 +595,12 @@
   will-change: auto;
 }
 
-/* Testimonial Item - Smooth Animation */
+/* Testimonial Item - Ultra Smooth Animation */
 .item-testimonial.scroll-animate {
   opacity: 0;
-  transform: scale3d(0.96, 0.96, 1);
-  transition: opacity 0.6s var(--ease-smooth-out),
-              transform 0.6s var(--ease-smooth-out);
+  transform: scale3d(0.97, 0.97, 1);
+  transition: opacity 0.8s var(--ease-ultra-out),
+              transform 0.8s var(--ease-ultra-out);
   contain: layout style paint;
   will-change: opacity, transform;
 }
@@ -609,9 +613,9 @@
 
 .about__image.scroll-animate {
   opacity: 0;
-  transform: translate3d(20px, 0, 0);
-  transition: opacity 0.8s var(--ease-smooth-out),
-              transform 0.8s var(--ease-smooth-out);
+  transform: translate3d(18px, 0, 0);
+  transition: opacity 0.9s var(--ease-ultra-out),
+              transform 0.9s var(--ease-ultra-out);
   contain: layout style paint;
 }
 
@@ -625,12 +629,12 @@
   will-change: auto;
 }
 
-/* Home page about section - Prevent jerky scroll */
+/* Home page about section - Ultra Smooth */
 .about-home .about__container.scroll-animate {
   opacity: 0;
-  transform: translate3d(0, 20px, 0);
-  transition: opacity 0.8s var(--ease-smooth-out),
-              transform 0.8s var(--ease-smooth-out);
+  transform: translate3d(0, 18px, 0);
+  transition: opacity 0.9s var(--ease-ultra-out),
+              transform 0.9s var(--ease-ultra-out);
 }
 
 .about-home .about__container.scroll-animate.animate-in {
@@ -638,18 +642,18 @@
   transform: translate3d(0, 0, 0);
 }
 
-/* Stagger nested animations on home page to prevent jerky appearance */
+/* Stagger nested animations on home page for ultra-smooth appearance */
 .about-home .about__content.scroll-animate,
 .about-home .about__image.scroll-animate {
-  transition-delay: 0.15s;
+  transition-delay: 0.2s;
 }
 
-/* Testimonial section - Smooth */
+/* Testimonial section - Ultra Smooth */
 .testimonial__container.scroll-animate {
   opacity: 0;
-  transform: translate3d(0, 20px, 0);
-  transition: opacity 0.8s var(--ease-smooth-out),
-              transform 0.8s var(--ease-smooth-out);
+  transform: translate3d(0, 18px, 0);
+  transition: opacity 0.9s var(--ease-ultra-out),
+              transform 0.9s var(--ease-ultra-out);
   contain: layout style paint;
 }
 
@@ -666,9 +670,9 @@
 .testimonial__item.scroll-animate {
   opacity: 0;
   transform: scale3d(0.98, 0.98, 1);
-  transition: opacity 0.7s var(--ease-smooth-out),
-              transform 0.7s var(--ease-smooth-out);
-  transition-delay: 0.15s;
+  transition: opacity 0.8s var(--ease-ultra-out),
+              transform 0.8s var(--ease-ultra-out);
+  transition-delay: 0.2s;
   contain: layout style paint;
 }
 
@@ -685,9 +689,9 @@
 /* Outro section - Smooth */
 .outro__container.scroll-animate {
   opacity: 0;
-  transform: translate3d(0, 30px, 0);
-  transition: opacity 0.7s var(--ease-smooth-out),
-              transform 0.7s var(--ease-smooth-out);
+  transform: translate3d(0, 18px, 0);
+  transition: opacity 0.9s var(--ease-ultra-out),
+              transform 0.9s var(--ease-ultra-out);
   contain: layout style paint;
   will-change: opacity, transform;
 }
@@ -819,11 +823,11 @@ section {
   contain: layout style paint;
 }
 
-/* Premium Page Transition Effect - Buttery Smooth */
+/* Premium Page Transition Effect - Ultra Smooth */
 @keyframes pageFadeIn {
   from {
     opacity: 0;
-    transform: translate3d(0, 15px, 0);
+    transform: translate3d(0, 10px, 0);
   }
   to {
     opacity: 1;
@@ -832,10 +836,10 @@ section {
 }
 
 .page {
-  animation: pageFadeIn 0.7s var(--ease-smooth-out);
+  animation: pageFadeIn 0.8s var(--ease-ultra-out);
 }
 
-/* Premium Section Dividers - Smooth */
+/* Premium Section Dividers - Ultra Smooth */
 section:not(:first-child) {
   position: relative;
 }
@@ -849,7 +853,7 @@ section:not(:first-child)::before {
   width: 0;
   height: 2px;
   background: linear-gradient(90deg, transparent, #4FD8E8, transparent);
-  animation: sectionDivider 1.2s var(--ease-smooth-out) 0.4s forwards;
+  animation: sectionDivider 1.5s var(--ease-ultra-out) 0.5s forwards;
 }
 
 @keyframes sectionDivider {
@@ -1069,10 +1073,10 @@ body::before {
   z-index: 1;
 }
 
-/* Premium Button Hover Effect - Buttery Smooth */
+/* Premium Button Hover Effect - Ultra Smooth */
 .button {
-  transition: all 0.4s var(--ease-smooth),
-              box-shadow 0.4s var(--ease-smooth);
+  transition: all 0.5s var(--ease-ultra-smooth),
+              box-shadow 0.5s var(--ease-ultra-smooth);
   transform-style: preserve-3d;
   backface-visibility: hidden;
   will-change: transform, box-shadow;
@@ -1082,24 +1086,24 @@ body::before {
   box-shadow: 0 8px 30px rgba(79, 216, 232, 0.6),
               0 0 40px rgba(79, 216, 232, 0.3);
   transform: translate3d(0, -3px, 0) scale3d(1.02, 1.02, 1);
-  transition: all 0.4s var(--ease-smooth),
-              box-shadow 0.4s var(--ease-smooth);
+  transition: all 0.5s var(--ease-ultra-smooth),
+              box-shadow 0.5s var(--ease-ultra-smooth);
 }
 
 .button:active {
   transform: translate3d(0, 0, 0) scale3d(0.98, 0.98, 1);
-  transition: all 0.15s var(--ease-smooth-in);
+  transition: all 0.2s var(--ease-ultra-in);
   will-change: auto;
 }
 
 .button:hover svg {
   transform: translate3d(5px, 0, 0) rotate(90deg);
-  transition: transform 0.5s var(--ease-spring);
+  transition: transform 0.6s var(--ease-spring);
 }
 
 .button:hover span {
   transform: translate3d(7px, 0, 0);
-  transition: transform 0.5s var(--ease-smooth);
+  transition: transform 0.6s var(--ease-ultra-smooth);
 }
 
 .title {
@@ -2209,11 +2213,11 @@ body::before {
   transition: left 0.5s ease;
 }
 
-/* Premium Card Hover Effect with 3D Depth - Buttery Smooth */
+/* Premium Card Hover Effect with 3D Depth - Ultra Smooth */
 .item-services {
-  transition: all 0.5s var(--ease-smooth),
-              box-shadow 0.5s var(--ease-smooth),
-              border-image 0.5s var(--ease-smooth);
+  transition: all 0.6s var(--ease-ultra-smooth),
+              box-shadow 0.6s var(--ease-ultra-smooth),
+              border-image 0.6s var(--ease-ultra-smooth);
   transform-style: preserve-3d;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -2228,8 +2232,8 @@ body::before {
     0 0 40px rgba(79, 216, 232, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 248, 255, 0.95) 100%);
-  transition: all 0.5s var(--ease-smooth),
-              box-shadow 0.5s var(--ease-smooth);
+  transition: all 0.6s var(--ease-ultra-smooth),
+              box-shadow 0.6s var(--ease-ultra-smooth);
 }
 
 .item-services:hover::before {
@@ -2674,7 +2678,7 @@ body::before {
   box-shadow:
     0 0 12px rgba(255, 122, 89, 0.18),
     inset 0 0 8px rgba(255, 122, 89, 0.06);
-  transition: all 0.6s var(--ease-smooth);
+  transition: all 0.8s var(--ease-ultra-smooth);
   will-change: transform, box-shadow, border-color;
 }
 
@@ -2684,7 +2688,7 @@ body::before {
     0 0 32px rgba(77, 212, 255, 0.9),
     inset 0 0 20px rgba(77, 212, 255, 0.2);
   transform: scale3d(1.03, 1.03, 1);
-  transition: all 0.6s var(--ease-smooth);
+  transition: all 0.8s var(--ease-ultra-smooth);
   will-change: auto;
 }
 
@@ -2887,7 +2891,7 @@ body::before {
   opacity: 1;
 }
 
-/* Premium Focus States - Smooth */
+/* Premium Focus States - Ultra Smooth */
 .form__input:focus,
 .form__textarea:focus {
   outline: none;
@@ -2896,13 +2900,13 @@ body::before {
   box-shadow: 0 0 20px rgba(79, 216, 232, 0.4),
               inset 0 0 10px rgba(79, 216, 232, 0.1);
   transform: translate3d(0, -1px, 0);
-  transition: all 0.4s var(--ease-smooth);
+  transition: all 0.5s var(--ease-ultra-smooth);
 }
 
-/* Premium Link Hover Effects - Buttery Smooth */
+/* Premium Link Hover Effects - Ultra Smooth */
 .menu__link,
 a:not(.button):not(.logo) {
-  transition: all 0.4s var(--ease-smooth);
+  transition: all 0.5s var(--ease-ultra-smooth);
   position: relative;
 }
 
@@ -2915,7 +2919,7 @@ a:not(.button):not(.logo)::after {
   width: 0;
   height: 2px;
   background: linear-gradient(90deg, #4FD8E8, #D946AA);
-  transition: width 0.5s var(--ease-smooth);
+  transition: width 0.6s var(--ease-ultra-smooth);
 }
 
 .menu__link:hover::after,
@@ -2923,10 +2927,10 @@ a:not(.button):not(.logo):hover::after {
   width: 100%;
 }
 
-/* Premium Card Testimonial Hover - Smooth */
+/* Premium Card Testimonial Hover - Ultra Smooth */
 .testimonial__item {
-  transition: all 0.5s var(--ease-smooth),
-              box-shadow 0.5s var(--ease-smooth);
+  transition: all 0.6s var(--ease-ultra-smooth),
+              box-shadow 0.6s var(--ease-ultra-smooth);
   transform-style: preserve-3d;
   will-change: transform, box-shadow;
 }
@@ -2934,8 +2938,8 @@ a:not(.button):not(.logo):hover::after {
 .testimonial__item:hover {
   transform: translate3d(0, -4px, 0) scale3d(1.02, 1.02, 1);
   box-shadow: 0 12px 40px rgba(0, 153, 255, 0.2);
-  transition: all 0.5s var(--ease-smooth),
-              box-shadow 0.5s var(--ease-smooth);
+  transition: all 0.6s var(--ease-ultra-smooth),
+              box-shadow 0.6s var(--ease-ultra-smooth);
   will-change: auto;
 }
 

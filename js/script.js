@@ -133,11 +133,11 @@ spollerButtons.forEach((button) => {
   let lastScrollY = 0;
   let scrollDirection = 0;
 
-  // Optimized Intersection Observer - batched updates for smooth performance
+  // Optimized Intersection Observer - batched updates for ultra-smooth performance
   const observerOptions = {
     root: null,
-    rootMargin: '0px 0px -15% 0px', // Trigger earlier to avoid jerky appearance
-    threshold: 0.1 // Single threshold for better performance
+    rootMargin: '0px 0px -20% 0px', // Trigger even earlier for smoother appearance
+    threshold: 0.05 // Lower threshold for earlier, smoother triggers
   };
 
   // Batch animation updates to prevent jerky scroll
@@ -151,16 +151,19 @@ spollerButtons.forEach((button) => {
     }
     
     isProcessingQueue = true;
-    const batch = animationQueue.splice(0, 5); // Process 5 at a time
+    const batch = animationQueue.splice(0, 3); // Process 3 at a time for smoother feel
     
     requestAnimationFrame(() => {
-      batch.forEach(entry => {
-        entry.target.classList.add('animate-in');
-        observer.unobserve(entry.target);
+      batch.forEach((entry, index) => {
+        // Stagger within batch for ultra-smooth appearance
+        setTimeout(() => {
+          entry.target.classList.add('animate-in');
+          observer.unobserve(entry.target);
+        }, index * 20);
       });
       
       if (animationQueue.length > 0) {
-        setTimeout(processAnimationQueue, 16); // ~60fps
+        setTimeout(processAnimationQueue, 20); // Slightly slower for smoother feel
       } else {
         isProcessingQueue = false;
       }
@@ -271,11 +274,11 @@ spollerButtons.forEach((button) => {
       });
     }, 150);
 
-    // Service items with staggered delays - Home page (optimized)
+    // Service items with staggered delays - Ultra smooth
     document.querySelectorAll('.item-services').forEach((item, index) => {
       if (item && !item.classList.contains('scroll-animate-scale')) {
-        // Increased stagger delay to prevent jerky scroll
-        item.style.setProperty('--delay', `${index * 0.15}s`);
+        // Optimized stagger delay for smoother sequential animation
+        item.style.setProperty('--delay', `${index * 0.2}s`);
         item.classList.add('scroll-animate-scale');
         observer.observe(item);
       }
@@ -336,21 +339,13 @@ spollerButtons.forEach((button) => {
     const deltaY = scrollY - lastScrollY;
     
     // Only update if scroll change is significant (reduces unnecessary updates)
-    if (Math.abs(deltaY) < 2 && scrollY > 0) {
+    if (Math.abs(deltaY) < 1.5 && scrollY > 0) {
       scrollTicking = false;
       return;
     }
     
-    // Parallax only for hero (first viewport) - Very subtle, only if enabled
-    if (parallaxEnabled && scrollY < window.innerHeight * 1.2 && parallaxElements.length > 0) {
-      parallaxElements.forEach((el) => {
-        if (el) {
-          // Minimal parallax for ultra-smooth feel
-          const yPos = -(scrollY * 0.05);
-          el.style.transform = `translate3d(0, ${yPos}px, 0)`;
-        }
-      });
-    }
+    // Parallax disabled by default for ultra-smooth scroll
+    // Can be enabled if needed, but disabled for best performance
     
     lastScrollY = scrollY;
     scrollTicking = false;
@@ -388,9 +383,11 @@ spollerButtons.forEach((button) => {
       }, { passive: true });
     });
 
-    // Card hover depth effect - Smooth with requestAnimationFrame
+    // Card hover depth effect - Ultra smooth with requestAnimationFrame
     document.querySelectorAll('.item-services, .testimonial__item').forEach(card => {
       let rafId = null;
+      let lastX = 0;
+      let lastY = 0;
       
       card.addEventListener('mousemove', function(e) {
         if (rafId) cancelAnimationFrame(rafId);
@@ -401,30 +398,39 @@ spollerButtons.forEach((button) => {
           const y = e.clientY - rect.top;
           const centerX = rect.width / 2;
           const centerY = rect.height / 2;
-          const rotateX = (y - centerY) / 25; // Reduced intensity for smoother feel
-          const rotateY = (centerX - x) / 25;
+          
+          // Smooth interpolation for ultra-smooth feel
+          const targetRotateX = (y - centerY) / 30; // Further reduced
+          const targetRotateY = (centerX - x) / 30;
+          const rotateX = lastX + (targetRotateX - lastX) * 0.3;
+          const rotateY = lastY + (targetRotateY - lastY) * 0.3;
+          
+          lastX = rotateX;
+          lastY = rotateY;
           
           this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate3d(0, -4px, 0)`;
-          this.style.transition = 'transform 0.1s linear'; // Smooth interpolation
+          this.style.transition = 'transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         });
       }, { passive: true });
       
       card.addEventListener('mouseleave', function() {
         if (rafId) cancelAnimationFrame(rafId);
-        this.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        lastX = 0;
+        lastY = 0;
+        this.style.transition = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
         this.style.transform = '';
       }, { passive: true });
     });
 
-    // Image zoom on hover - Smooth transitions
+    // Image zoom on hover - Ultra smooth transitions
     document.querySelectorAll('.about__image img, .services-page__img img, .item-services__image img').forEach(img => {
       img.addEventListener('mouseenter', function() {
-        this.style.transition = 'transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        this.style.transition = 'transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), filter 0.8s cubic-bezier(0.22, 1, 0.36, 1)';
         this.style.transform = 'scale3d(1.05, 1.05, 1)';
       }, { passive: true });
       
       img.addEventListener('mouseleave', function() {
-        this.style.transition = 'transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        this.style.transition = 'transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), filter 0.8s cubic-bezier(0.22, 1, 0.36, 1)';
         this.style.transform = '';
       }, { passive: true });
     });
