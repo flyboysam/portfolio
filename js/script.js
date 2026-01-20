@@ -330,9 +330,21 @@ spollerButtons.forEach((button) => {
     setTimeout(checkInitialViewport, 200);
   }
 
-  // Optimized parallax - only hero section, disabled for smoother scroll
-  const parallaxElements = document.querySelectorAll('.main__container');
-  let parallaxEnabled = false; // Disable parallax by default for smoother scroll
+  // Parallax scrolling animation for background layers
+  const layers = document.querySelectorAll('.parallax .layer');
+  
+  function parallax() {
+    const y = window.scrollY || window.pageYOffset;
+    
+    if (layers.length > 0) {
+      // Move each layer at different speeds for depth effect
+      for (let i = 1; i < layers.length; i++) {
+        const layer = layers[layers.length - i];
+        const speed = i * 0.1; // Each layer moves at different speed
+        layer.style.transform = `translateY(${speed * y}px)`;
+      }
+    }
+  }
   
   function updateScrollEffects() {
     const scrollY = window.pageYOffset || document.documentElement.scrollTop;
@@ -344,40 +356,16 @@ spollerButtons.forEach((button) => {
       return;
     }
     
-    // Parallax disabled by default for ultra-smooth scroll
-    // Can be enabled if needed, but disabled for best performance
+    // Update parallax effect
+    parallax();
     
     lastScrollY = scrollY;
     scrollTicking = false;
   }
 
-  // Optimize video during scroll
-  const mainVideo = document.querySelector('.main__video');
-  let scrollPauseTimeout;
-  let isScrolling = false;
-
-  function handleScrollOptimization() {
-    if (!isScrolling) {
-      isScrolling = true;
-      document.body.classList.add('scrolling');
-    }
-
-    // Clear existing timeout
-    clearTimeout(scrollPauseTimeout);
-    
-    // Resume after scroll stops
-    scrollPauseTimeout = setTimeout(() => {
-      isScrolling = false;
-      document.body.classList.remove('scrolling');
-    }, 150);
-  }
-
-  // Throttled scroll handler with better performance
+  // Parallax scroll handler - optimized with requestAnimationFrame
   let scrollTimeout;
   window.addEventListener('scroll', () => {
-    // Optimize animations during scroll
-    handleScrollOptimization();
-    
     if (!scrollTicking) {
       requestAnimationFrame(updateScrollEffects);
       scrollTicking = true;
@@ -389,6 +377,9 @@ spollerButtons.forEach((button) => {
       scrollTicking = false;
     }, 150);
   }, { passive: true });
+  
+  // Initialize parallax on page load
+  parallax();
 
   // Premium micro-interactions
   function initMicroInteractions() {

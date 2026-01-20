@@ -1487,16 +1487,6 @@ body::before {
   -webkit-backface-visibility: hidden;
   /* Reduce video quality during scroll for better performance */
   contain: layout style paint;
-  /* Pause video playback when not visible */
-  playsinline: true;
-  preload: "metadata";
-}
-
-/* Reduce video processing during scroll */
-body.scrolling .main__video {
-  opacity: 0.9;
-  filter: blur(1px);
-  transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
 .main::before {
@@ -4012,75 +4002,75 @@ iframe {
 
 /* ************SMOOTH ANIMATED BACKGROUND************ */
 
-/* Simple animated background - optimized for ultra-smooth scrolling */
-.animated-background {
+/* Parallax Background Layers - Smooth Scrolling Animation */
+.parallax {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  pointer-events: none;
+  height: 100vh;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
   z-index: 0;
+  pointer-events: none;
   overflow: hidden;
-  opacity: 0.2;
-  /* GPU acceleration */
-  transform: translateZ(0);
-  will-change: auto;
-  contain: strict;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
 }
 
-/* Gradient orbs - simple, smooth animation with minimal movement */
-.gradient-orb {
+.parallax .layer {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.3;
-  animation: smoothFloat 30s ease-in-out infinite;
-  contain: layout style paint;
+  width: 100%;
+  height: 100%;
+  background-position: center 25%;
+  background-size: cover;
+  z-index: -1;
+  transition: transform 0.1s ease-out;
   will-change: transform;
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  contain: layout style paint;
 }
 
-.gradient-orb.orb-1 {
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(79, 216, 232, 0.4) 0%, transparent 70%);
-  top: 10%;
-  left: 10%;
-  animation-duration: 35s;
-  animation-delay: 0s;
+/* Aerospace-themed gradient layers */
+.parallax .layer:nth-of-type(1) {
+  background: radial-gradient(circle at 20% 30%, rgba(79, 216, 232, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at 80% 70%, rgba(61, 126, 219, 0.1) 0%, transparent 50%);
+  opacity: 0.4;
 }
 
-.gradient-orb.orb-2 {
-  width: 450px;
-  height: 450px;
-  background: radial-gradient(circle, rgba(217, 70, 170, 0.35) 0%, transparent 70%);
-  top: 60%;
-  right: 15%;
-  animation-duration: 40s;
-  animation-delay: -12s;
+.parallax .layer:nth-of-type(2) {
+  background: radial-gradient(circle at 60% 40%, rgba(217, 70, 170, 0.12) 0%, transparent 50%),
+              radial-gradient(circle at 30% 80%, rgba(107, 63, 160, 0.1) 0%, transparent 50%);
+  opacity: 0.35;
 }
 
-.gradient-orb.orb-3 {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(245, 166, 35, 0.3) 0%, transparent 70%);
-  bottom: 20%;
-  left: 20%;
-  animation-duration: 38s;
-  animation-delay: -6s;
+.parallax .layer:nth-of-type(3) {
+  background: radial-gradient(circle at 40% 20%, rgba(245, 166, 35, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 70% 60%, rgba(79, 216, 232, 0.08) 0%, transparent 50%);
+  opacity: 0.3;
 }
 
-@keyframes smoothFloat {
-  0%, 100% {
-    transform: translate3d(0, 0, 0);
-    opacity: 0.3;
-  }
-  50% {
-    transform: translate3d(20px, -30px, 0);
-    opacity: 0.35;
+.parallax .layer:nth-of-type(4) {
+  background: radial-gradient(circle at 50% 50%, rgba(61, 126, 219, 0.08) 0%, transparent 60%),
+              radial-gradient(circle at 10% 90%, rgba(217, 70, 170, 0.06) 0%, transparent 50%);
+  opacity: 0.25;
+}
+
+.parallax .layer:nth-of-type(5) {
+  background: radial-gradient(circle at 80% 20%, rgba(107, 63, 160, 0.06) 0%, transparent 60%),
+              radial-gradient(circle at 20% 60%, rgba(245, 166, 35, 0.05) 0%, transparent 50%);
+  opacity: 0.2;
+}
+
+.parallax .layer:nth-of-type(6) {
+  background: radial-gradient(circle at 30% 10%, rgba(79, 216, 232, 0.05) 0%, transparent 70%),
+              radial-gradient(circle at 90% 80%, rgba(61, 126, 219, 0.04) 0%, transparent 60%);
+  opacity: 0.15;
+}
+
+@media (height < 700px) {
+  .parallax {
+    height: 160vh;
   }
 }
 
