@@ -351,9 +351,33 @@ spollerButtons.forEach((button) => {
     scrollTicking = false;
   }
 
+  // Optimize video during scroll
+  const mainVideo = document.querySelector('.main__video');
+  let scrollPauseTimeout;
+  let isScrolling = false;
+
+  function handleScrollOptimization() {
+    if (!isScrolling) {
+      isScrolling = true;
+      document.body.classList.add('scrolling');
+    }
+
+    // Clear existing timeout
+    clearTimeout(scrollPauseTimeout);
+    
+    // Resume after scroll stops
+    scrollPauseTimeout = setTimeout(() => {
+      isScrolling = false;
+      document.body.classList.remove('scrolling');
+    }, 150);
+  }
+
   // Throttled scroll handler with better performance
   let scrollTimeout;
   window.addEventListener('scroll', () => {
+    // Optimize animations during scroll
+    handleScrollOptimization();
+    
     if (!scrollTicking) {
       requestAnimationFrame(updateScrollEffects);
       scrollTicking = true;
