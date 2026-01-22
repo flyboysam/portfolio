@@ -414,8 +414,6 @@ spollerButtons.forEach((button) => {
   }
 
   // Parallax scrolling animation for background layers - OPTIMIZED
-  const layers = document.querySelectorAll('.parallax .layer');
-  
   function updateParallax(scrollY) {
     if (layers.length > 0) {
       // Move each layer at different speeds for depth effect
