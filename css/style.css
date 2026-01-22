@@ -97,29 +97,25 @@
 
 @keyframes glowPulse {
   0%, 100% {
+    /* Reduced box-shadows for better performance */
     box-shadow: 
       0 0 20px rgba(79, 216, 232, 0.4),
-      0 0 40px rgba(79, 216, 232, 0.3),
-      0 0 60px rgba(61, 126, 219, 0.2),
-      0 0 80px rgba(107, 63, 160, 0.1),
-      inset 0 0 20px rgba(79, 216, 232, 0.1);
+      0 0 40px rgba(79, 216, 232, 0.3);
   }
   50% {
     box-shadow: 
       0 0 30px rgba(79, 216, 232, 0.6),
-      0 0 60px rgba(217, 70, 170, 0.4),
-      0 0 90px rgba(61, 126, 219, 0.3),
-      0 0 120px rgba(107, 63, 160, 0.2),
-      inset 0 0 30px rgba(79, 216, 232, 0.15);
+      0 0 60px rgba(217, 70, 170, 0.4);
   }
 }
 
 @keyframes borderGlow {
   0%, 100% {
-    filter: brightness(1) drop-shadow(0 0 10px rgba(79, 216, 232, 0.5));
+    /* Simplified filter for better performance */
+    opacity: 1;
   }
   50% {
-    filter: brightness(1.2) drop-shadow(0 0 20px rgba(217, 70, 170, 0.8));
+    opacity: 1.1;
   }
 }
 
@@ -138,12 +134,12 @@
   --ease-ultra-in: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Using transform3d and opacity only for GPU acceleration - Ultra Smooth */
+/* Apple-style subtle animations - Ultra Smooth */
 .scroll-animate {
   opacity: 0;
-  transform: translate3d(0, 20px, 0);
-  transition: opacity 0.9s var(--ease-ultra-out),
-              transform 0.9s var(--ease-ultra-out);
+  transform: translate3d(0, 15px, 0);
+  transition: opacity 1.2s var(--ease-ultra-out),
+              transform 1.2s var(--ease-ultra-out);
   contain: layout style paint;
   /* Only set will-change when about to animate */
 }
@@ -154,19 +150,30 @@
   will-change: auto;
 }
 
+/* Pause animations during active scrolling for smooth performance */
+body.scrolling .scroll-animate {
+  transition-duration: 0.01ms !important;
+}
+
+body.scrolling .scroll-animate.animate-in {
+  /* Keep final state during scroll */
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
 /* Set will-change only when element is about to be observed */
 .scroll-animate:not(.animate-in) {
   will-change: opacity, transform;
 }
 
-/* Premium Image Reveal with Blur - Ultra Smooth */
+/* Apple-style Image Reveal - Subtle and Smooth */
 .image-reveal {
   opacity: 0;
-  filter: blur(6px);
-  transform: scale3d(1.01, 1.01, 1);
-  transition: opacity 1s var(--ease-ultra-out),
-              filter 1s var(--ease-ultra-out),
-              transform 1s var(--ease-ultra-out);
+  filter: blur(4px);
+  transform: scale3d(1.005, 1.005, 1);
+  transition: opacity 1.4s var(--ease-ultra-out),
+              filter 1.4s var(--ease-ultra-out),
+              transform 1.4s var(--ease-ultra-out);
   contain: layout style paint;
   /* Optimize: only set will-change when needed */
 }
@@ -182,12 +189,17 @@
   will-change: auto;
 }
 
-/* Premium Text Reveal Animation - Ultra Smooth */
+/* Pause image animations during scroll */
+body.scrolling .image-reveal {
+  transition-duration: 0.01ms !important;
+}
+
+/* Apple-style Text Reveal - Subtle and Elegant */
 .text-reveal {
   opacity: 0;
-  transform: translate3d(0, 12px, 0);
-  transition: opacity 0.9s var(--ease-ultra-out) 0.2s,
-              transform 0.9s var(--ease-ultra-out) 0.2s;
+  transform: translate3d(0, 10px, 0);
+  transition: opacity 1.1s var(--ease-ultra-out) 0.15s,
+              transform 1.1s var(--ease-ultra-out) 0.15s;
   contain: layout style paint;
   will-change: opacity, transform;
 }
@@ -196,6 +208,11 @@
   opacity: 1;
   transform: translate3d(0, 0, 0);
   will-change: auto;
+}
+
+/* Pause text animations during scroll */
+body.scrolling .text-reveal {
+  transition-duration: 0.01ms !important;
 }
 
 /* Staggered text reveal for paragraphs - Ultra Smooth */
@@ -211,10 +228,12 @@
   transform: translate3d(0, 0, 0);
 }
 
-.text-reveal.animate-in p:nth-child(1) { transition-delay: 0.1s; }
-.text-reveal.animate-in p:nth-child(2) { transition-delay: 0.2s; }
-.text-reveal.animate-in p:nth-child(3) { transition-delay: 0.3s; }
-.text-reveal.animate-in p:nth-child(4) { transition-delay: 0.4s; }
+/* Apple-style subtle stagger - More gentle delays */
+.text-reveal.animate-in p:nth-child(1) { transition-delay: 0.08s; }
+.text-reveal.animate-in p:nth-child(2) { transition-delay: 0.16s; }
+.text-reveal.animate-in p:nth-child(3) { transition-delay: 0.24s; }
+.text-reveal.animate-in p:nth-child(4) { transition-delay: 0.32s; }
+.text-reveal.animate-in p:nth-child(5) { transition-delay: 0.4s; }
 
 /* Fade in from bottom with blur - Buttery Smooth */
 .scroll-animate-blur {
@@ -235,12 +254,12 @@
   will-change: auto;
 }
 
-/* Scale and fade - Ultra Smooth */
+/* Apple-style Scale and Fade - Very Subtle */
 .scroll-animate-scale {
   opacity: 0;
-  transform: scale3d(0.97, 0.97, 1);
-  transition: opacity 0.9s var(--ease-ultra-out),
-              transform 0.9s var(--ease-ultra-out);
+  transform: scale3d(0.98, 0.98, 1);
+  transition: opacity 1.3s var(--ease-ultra-out),
+              transform 1.3s var(--ease-ultra-out);
   transition-delay: var(--delay, 0s);
   contain: layout style paint;
   will-change: opacity, transform;
@@ -250,6 +269,11 @@
   opacity: 1;
   transform: scale3d(1, 1, 1);
   will-change: auto;
+}
+
+/* Pause scale animations during scroll */
+body.scrolling .scroll-animate-scale {
+  transition-duration: 0.01ms !important;
 }
 
 /* Slide from left - Smooth */
@@ -380,16 +404,17 @@
   transition-delay: 0s;
 }
 
+/* Apple-style subtle stagger for service items */
 .services__row .scroll-animate:nth-child(1) {
-  transition-delay: 0.08s;
+  transition-delay: 0.06s;
 }
 
 .services__row .scroll-animate:nth-child(2) {
-  transition-delay: 0.16s;
+  transition-delay: 0.12s;
 }
 
 .services__row .scroll-animate:nth-child(3) {
-  transition-delay: 0.24s;
+  transition-delay: 0.18s;
 }
 
 /* Smooth fade and scale for cards - Ultra Smooth */
@@ -785,14 +810,70 @@
   -webkit-transform: translateZ(0);
 }
 
-/* Premium Smooth Scrolling */
+/* Premium Smooth Scrolling - Cross-Platform (Mac & Windows) */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
-  /* Optimize scroll performance */
+  /* Optimize scroll performance for all platforms */
   -webkit-overflow-scrolling: touch;
+  /* Momentum scrolling for Mac trackpad and Windows precision touchpad */
+  overscroll-behavior: smooth;
+  /* Prevent scroll chaining */
+  overscroll-behavior-y: contain;
+  /* Mac-specific: Enhanced momentum scrolling */
+  -webkit-overflow-scrolling: touch;
+  /* Reduce scroll lag on Mac */
+  scroll-snap-type: none;
 }
 
+/* Mac-specific optimizations for ultra-smooth scrolling */
+@supports (-webkit-overflow-scrolling: touch) {
+  html {
+    /* Enhanced momentum scrolling for Mac trackpad */
+    -webkit-overflow-scrolling: touch;
+    /* Smooth scroll physics */
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    /* Optimize for Mac trackpad momentum */
+    -webkit-overflow-scrolling: touch;
+    /* Reduce repaints during scroll */
+    transform: translate3d(0, 0, 0);
+    will-change: scroll-position;
+  }
+  
+  /* Optimize all scrollable elements for Mac */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  * {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Smooth scrolling for all scrollable containers (with reduced motion fallback) */
+* {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto;
+  }
+}
 /* Prevent scroll jank - Optimize rendering during scroll */
 body {
   /* Force hardware acceleration */
@@ -803,6 +884,17 @@ body {
   /* Smooth scrolling optimization */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Enhanced smooth scrolling for Mac and Windows */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: smooth;
+  /* Reduce scroll lag */
+  will-change: scroll-position;
+  /* Mac-specific: Ultra-smooth momentum scrolling */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  /* Optimize compositing for smooth scroll */
+  isolation: isolate;
 }
 
 /* Optimize sections during scroll */
@@ -813,6 +905,22 @@ section {
   /* Prevent repaints during scroll */
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  /* Smooth scrolling for section anchors */
+  scroll-margin-top: 5rem;
+  scroll-snap-margin-top: 5rem; /* Safari support */
+  /* Mac: Optimize for momentum scrolling */
+  -webkit-overflow-scrolling: touch;
+  /* Reduce paint operations during scroll */
+  will-change: transform;
+}
+
+/* Smooth scrolling for all scrollable containers */
+.scroll-container,
+[class*="__container"],
+main {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: smooth;
 }
 
 /* Home page specific optimizations */
@@ -821,6 +929,86 @@ section {
   /* Isolate rendering to prevent scroll jank */
   isolation: isolate;
   contain: layout style paint;
+}
+
+/* Mac-specific: Optimize animations during scroll for smoother performance */
+body.scrolling * {
+  /* Reduce animation complexity during scroll */
+  animation-play-state: paused;
+  transition-duration: 0.01ms !important;
+}
+
+body.scrolling .scroll-animate,
+body.scrolling .image-reveal,
+body.scrolling .text-reveal,
+body.scrolling .scroll-animate-scale,
+body.scrolling .scroll-animate-blur {
+  /* Keep scroll animations smooth but reduce complexity */
+  will-change: transform, opacity;
+}
+
+/* Apple-style subtle hover effects - Only when not scrolling */
+body:not(.scrolling) .item-services:hover {
+  transform: translate3d(0, -2px, 0);
+  transition: transform 0.6s var(--ease-ultra-smooth);
+}
+
+body:not(.scrolling) .testimonial__item:hover {
+  transform: translate3d(0, -2px, 0);
+  transition: transform 0.6s var(--ease-ultra-smooth);
+}
+
+/* Apple-style subtle image zoom on hover - Only when not scrolling */
+body:not(.scrolling) .about__image img:hover,
+body:not(.scrolling) .services-page__img img:hover {
+  transform: scale3d(1.02, 1.02, 1);
+  transition: transform 0.8s var(--ease-ultra-smooth);
+}
+
+/* Apple-style subtle link hover - Very gentle */
+body:not(.scrolling) a:not(.button):hover {
+  opacity: 0.85;
+  transition: opacity 0.4s var(--ease-ultra-smooth);
+}
+
+/* Apple-style subtle button hover - Gentle scale */
+body:not(.scrolling) .button:hover {
+  transform: translate3d(0, -1px, 0) scale3d(1.01, 1.01, 1);
+  transition: transform 0.5s var(--ease-ultra-smooth);
+}
+
+/* Apple-style subtle text fade on scroll reveal */
+.text-reveal.animate-in {
+  animation: appleFadeIn 1.1s var(--ease-ultra-out) forwards;
+}
+
+@keyframes appleFadeIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Pause keyframe animations during scroll */
+body.scrolling * {
+  animation-play-state: paused !important;
+}
+
+/* Mac: Enhanced smooth scrolling for all interactive elements */
+@supports (-webkit-overflow-scrolling: touch) {
+  .item-services,
+  .testimonial__item,
+  .about__image,
+  .services-page__item {
+    /* Optimize for Mac trackpad momentum */
+    -webkit-overflow-scrolling: touch;
+    transform: translateZ(0);
+    will-change: transform;
+  }
 }
 
 /* Premium Page Transition Effect - Ultra Smooth */
@@ -2321,6 +2509,324 @@ body::before {
 
 /* ************TESTIMONIAL**************** */
 
+/* ****************SKILLS SECTION**************** */
+.skills {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.skills__container {
+  background: linear-gradient(135deg, 
+    rgba(79, 216, 232, 0.08) 0%, 
+    rgba(255, 217, 61, 0.1) 50%, 
+    rgba(217, 70, 170, 0.08) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  border-radius: 20px;
+  position: relative;
+  max-width: 74.624rem;
+  margin: 0 auto;
+  box-shadow: 
+    0 10px 40px rgba(79, 216, 232, 0.15),
+    inset 0 0 60px rgba(79, 216, 232, 0.05);
+}
+
+.skills__caption {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #4FD8E8;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 10px rgba(79, 216, 232, 0.3);
+}
+
+.skills__title {
+  margin-bottom: 1.5rem;
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-weight: 700;
+  background: linear-gradient(135deg, #4FD8E8 0%, #FFD93D 50%, #D946AA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.skills__text {
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.skills__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 3rem;
+}
+
+.skills__category {
+  background: linear-gradient(135deg, 
+    rgba(79, 216, 232, 0.1) 0%, 
+    rgba(61, 126, 219, 0.1) 100%);
+  padding: 2rem;
+  border-radius: 16px;
+  border: 2px solid rgba(79, 216, 232, 0.2);
+  transition: transform 0.4s var(--ease-ultra-smooth), 
+              border-color 0.4s var(--ease-ultra-smooth),
+              background 0.4s var(--ease-ultra-smooth);
+  /* Removed backdrop-filter for better performance */
+}
+
+.skills__category:hover {
+  transform: translate3d(0, -4px, 0);
+  border-color: rgba(79, 216, 232, 0.4);
+  box-shadow: 
+    0 12px 40px rgba(79, 216, 232, 0.2),
+    inset 0 0 30px rgba(79, 216, 232, 0.1);
+  background: linear-gradient(135deg, 
+    rgba(79, 216, 232, 0.15) 0%, 
+    rgba(61, 126, 219, 0.15) 100%);
+}
+
+.skills__category-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #4FD8E8;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  text-shadow: 0 2px 10px rgba(79, 216, 232, 0.3);
+}
+
+.skills__items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.skills__item {
+  padding: 0.875rem 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(79, 216, 232, 0.2);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  transition: all 0.4s var(--ease-ultra-smooth);
+  text-align: center;
+  backdrop-filter: blur(5px);
+}
+
+.skills__item:hover {
+  background: rgba(79, 216, 232, 0.15);
+  border-color: rgba(79, 216, 232, 0.4);
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(79, 216, 232, 0.2);
+  color: #4FD8E8;
+}
+
+.skills__button {
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .skills__grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .skills__title {
+    font-size: 2rem;
+  }
+  
+  .skills__container {
+    padding: 3rem 1.5rem;
+  }
+}
+
+/* ****************SKILLS SECTION**************** */
+.skills {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.skills__container {
+  background: linear-gradient(135deg, 
+    rgba(79, 216, 232, 0.06) 0%, 
+    rgba(255, 217, 61, 0.08) 50%, 
+    rgba(217, 70, 170, 0.06) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  position: relative;
+  max-width: 74.624rem;
+  margin: 0 auto;
+  box-shadow: 
+    0 8px 30px rgba(79, 216, 232, 0.12),
+    inset 0 0 40px rgba(79, 216, 232, 0.04);
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  border-image: linear-gradient(90deg, #4FD8E8 0%, #FFD93D 50%, #D946AA 100%) 1;
+}
+
+.skills__caption {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #4FD8E8;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 8px rgba(79, 216, 232, 0.3);
+}
+
+.skills__title {
+  margin-bottom: 1rem;
+  font-size: 1.875rem;
+  line-height: 1.2;
+  font-weight: 700;
+  background: linear-gradient(135deg, #4FD8E8 0%, #FFD93D 50%, #D946AA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.skills__text {
+  max-width: 500px;
+  margin: 0 auto 2rem;
+  font-size: 0.938rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.skills__text p {
+  margin: 0;
+}
+
+.skills__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 0;
+}
+
+.skills__category {
+  background: linear-gradient(135deg, 
+    rgba(79, 216, 232, 0.08) 0%, 
+    rgba(61, 126, 219, 0.08) 100%);
+  padding: 1.25rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(79, 216, 232, 0.15);
+  transition: all 0.4s var(--ease-ultra-smooth);
+  backdrop-filter: blur(8px);
+}
+
+.skills__category:hover {
+  transform: translate3d(0, -2px, 0);
+  border-color: rgba(79, 216, 232, 0.3);
+  box-shadow: 
+    0 8px 24px rgba(79, 216, 232, 0.15),
+    inset 0 0 20px rgba(79, 216, 232, 0.08);
+  background: linear-gradient(135deg, 
+    rgba(79, 216, 232, 0.12) 0%, 
+    rgba(61, 126, 219, 0.12) 100%);
+}
+
+.skills__category-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #4FD8E8;
+  margin-bottom: 0.875rem;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(79, 216, 232, 0.3);
+}
+
+.skills__items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.skills__item {
+  padding: 0.5rem 0.75rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(79, 216, 232, 0.15);
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  transition: transform 0.3s var(--ease-ultra-smooth),
+              background 0.3s var(--ease-ultra-smooth),
+              border-color 0.3s var(--ease-ultra-smooth),
+              color 0.3s var(--ease-ultra-smooth),
+              box-shadow 0.3s var(--ease-ultra-smooth);
+  text-align: center;
+  /* Removed backdrop-filter for better performance */
+}
+
+.skills__item:hover {
+  background: rgba(79, 216, 232, 0.12);
+  border-color: rgba(79, 216, 232, 0.3);
+  transform: translateX(2px);
+  box-shadow: 0 2px 8px rgba(79, 216, 232, 0.15);
+  color: #4FD8E8;
+}
+
+.skills__button {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .skills__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .skills {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  .skills__container {
+    padding: 2rem 1.5rem;
+  }
+  
+  .skills__grid {
+    grid-template-columns: 1fr;
+    gap: 0.875rem;
+  }
+  
+  .skills__title {
+    font-size: 1.5rem;
+  }
+  
+  .skills__text {
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .skills__category {
+    padding: 1rem 0.875rem;
+  }
+}
+
 .testimonial__container {
   background: linear-gradient(135deg, 
     rgba(217, 70, 170, 0.08) 0%, 
@@ -3044,10 +3550,59 @@ a:not(.button):not(.logo):hover::after {
   100% { transform: translateX(5px) rotate(90deg) translateY(0); }
 }
 
+/* Colorful Map Styling */
+.map {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 
+    0 10px 40px rgba(79, 216, 232, 0.3),
+    0 0 60px rgba(255, 217, 61, 0.2),
+    inset 0 0 40px rgba(79, 216, 232, 0.1);
+  background: linear-gradient(135deg, rgba(79, 216, 232, 0.1) 0%, rgba(255, 217, 61, 0.1) 100%);
+  padding: 4px;
+}
+
+.map-iframe {
+  width: 100%;
+  height: 450px;
+  border-radius: 8px;
+  /* Colorful filter - enhance colors instead of grayscale */
+  filter: 
+    brightness(1.05) 
+    contrast(1.1) 
+    saturate(1.3)
+    hue-rotate(-5deg);
+  transition: filter 0.6s var(--ease-ultra-smooth);
+  border: 2px solid transparent;
+  background: linear-gradient(135deg, #4FD8E8, #FFD93D, #FF9F40, #D946AA) padding-box,
+              linear-gradient(135deg, #4FD8E8, #FFD93D, #FF9F40, #D946AA) border-box;
+  background-size: 200% 200%;
+  animation: mapBorderGlow 8s ease infinite;
+}
+
+.map-iframe:hover {
+  filter: 
+    brightness(1.1) 
+    contrast(1.15) 
+    saturate(1.4)
+    hue-rotate(0deg);
+}
+
+@keyframes mapBorderGlow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
 iframe {
   width: 100vw;
   height: 482px;
-  filter: grayscale(100%);
+  /* Removed grayscale - maps are now colorful */
 }
 
 /* **************REVIEWS PAGE**************** */
