@@ -151,6 +151,23 @@ spollerButtons.forEach((button) => {
     });
   }, observerOptions);
 
+  // Apple-style scroll-driven reveal: opacity/position tied to scroll progress
+  const scrollDriverThresholds = [];
+  for (let i = 0; i <= 20; i++) scrollDriverThresholds.push(i / 20);
+  const scrollDriverObserver = new IntersectionObserver((entries) => {
+    for (let i = 0; i < entries.length; i++) {
+      const e = entries[i];
+      const el = e.target;
+      const ratio = e.intersectionRatio;
+      el.style.setProperty('--scroll-reveal', ratio);
+      if (ratio >= 0.25) {
+        el.style.setProperty('--scroll-reveal', '1');
+        el.classList.add('animate-in');
+        scrollDriverObserver.unobserve(el);
+      }
+    }
+  }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: scrollDriverThresholds });
+
   // Scroll handler: only parallax (throttled), header toggle on boundary cross, body.scrolling for CSS
   let scrollStopTimeout = null;
   function handleScroll() {
@@ -248,13 +265,12 @@ spollerButtons.forEach((button) => {
       '.contact__title'
     ];
 
-    // Animate containers first - batch DOM queries
+    // Apple-style scroll-driven reveal for main section containers
     containerSelectors.forEach(selector => {
-      const elements = document.querySelectorAll(selector);
-      elements.forEach(el => {
-        if (el && !el.classList.contains('scroll-animate')) {
-          el.classList.add('scroll-animate');
-          observer.observe(el);
+      document.querySelectorAll(selector).forEach(el => {
+        if (el && !el.classList.contains('scroll-reveal-driver') && !el.classList.contains('scroll-animate')) {
+          el.classList.add('scroll-reveal-driver');
+          scrollDriverObserver.observe(el);
         }
       });
     });
