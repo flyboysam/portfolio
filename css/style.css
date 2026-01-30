@@ -276,6 +276,29 @@ body.scrolling .scroll-reveal-driver.animate-in {
   transform: translate3d(0, 0, 0);
 }
 
+/* Scroll zoom-in: scale up as element enters viewport */
+.scroll-zoom-in {
+  opacity: 0;
+  transform: scale3d(0.88, 0.88, 1);
+  transition: opacity 0.75s var(--ease-apple-out),
+              transform 0.75s var(--ease-apple-out);
+  transform-origin: center center;
+}
+
+.scroll-zoom-in.animate-in {
+  opacity: 1;
+  transform: scale3d(1, 1, 1);
+}
+
+body.scrolling .scroll-zoom-in {
+  transition-duration: 0.6s !important;
+}
+
+body.scrolling .scroll-zoom-in.animate-in {
+  opacity: 1;
+  transform: scale3d(1, 1, 1);
+}
+
 /* Stagger children for cascade-in (headline → subtext → CTA) */
 .scroll-reveal-stagger > * {
   opacity: 0;
@@ -852,6 +875,7 @@ body.scrolling .scroll-animate-scale.animate-in {
   .scroll-animate-right,
   .scroll-animate-rotate,
   .scroll-reveal-driver,
+  .scroll-zoom-in,
   .scroll-reveal-stagger > *,
   .fade-in {
     opacity: 1;
@@ -868,6 +892,7 @@ body.scrolling .scroll-animate-scale.animate-in {
   .scroll-animate-right.animate-in,
   .scroll-animate-rotate.animate-in,
   .scroll-reveal-driver.animate-in,
+  .scroll-zoom-in.animate-in,
   .scroll-reveal-stagger.animate-in > *,
   .fade-in.visible {
     opacity: 1;
@@ -1064,8 +1089,14 @@ body.scrolling .image-reveal,
 body.scrolling .text-reveal,
 body.scrolling .scroll-animate-scale,
 body.scrolling .scroll-animate-blur,
-body.scrolling .scroll-reveal-driver {
+body.scrolling .scroll-reveal-driver,
+body.scrolling .scroll-zoom-in {
   will-change: transform, opacity;
+}
+
+/* Keep zoom-in transition visible during scroll (override body.scrolling *) */
+body.scrolling .scroll-zoom-in {
+  transition-duration: 0.6s !important;
 }
 
 /* Apple-style subtle hover effects - Only when not scrolling */

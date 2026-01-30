@@ -229,11 +229,12 @@ spollerButtons.forEach((button) => {
     // Cache DOM queries to avoid repeated lookups
     const isHomePage = document.querySelector('.about-home, .page__services.services');
     
-    // Main sections - Prioritize containers over nested elements for smoother performance
+    // Main sections – zoom-in on scroll (containers)
     const containerSelectors = [
       '.about__container',
       '.services__container',
       '.skills__container',
+      '.testimonial__container',
       '.outro__container',
       '.resume__container',
       '.services-page__item',
@@ -265,22 +266,24 @@ spollerButtons.forEach((button) => {
       '.contact__title'
     ];
 
-    // Apple-style scroll-driven reveal for main section containers
-    const viewportH = window.innerHeight;
-    containerSelectors.forEach(selector => {
-      document.querySelectorAll(selector).forEach(el => {
-        if (!el || el.classList.contains('scroll-reveal-driver') || el.classList.contains('scroll-animate')) return;
-        el.classList.add('scroll-reveal-driver');
-        // Already in view: show immediately so no flash
-        const rect = el.getBoundingClientRect();
-        if (rect.top < viewportH * 0.85) {
-          el.style.setProperty('--scroll-reveal', '1');
-          el.classList.add('animate-in');
-        } else {
-          scrollDriverObserver.observe(el);
-        }
+    // Scroll zoom-in for main section containers (run after layout)
+    function applyScrollZoomIn() {
+      const viewportH = window.innerHeight;
+      containerSelectors.forEach(selector => {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach(el => {
+          if (!el || el.classList.contains('scroll-zoom-in') || el.classList.contains('animate-in')) return;
+          el.classList.add('scroll-zoom-in');
+          const rect = el.getBoundingClientRect();
+          if (rect.top < viewportH * 0.9) {
+            el.classList.add('animate-in');
+          } else {
+            observer.observe(el);
+          }
+        });
       });
-    });
+    }
+    requestAnimationFrame(applyScrollZoomIn);
 
     if (!isHomePage) {
       // On other pages, animate content elements
@@ -311,15 +314,14 @@ spollerButtons.forEach((button) => {
       });
     }, 150);
 
-    // Service items with staggered delays - Ultra smooth
+    // Service cards – scale + fade (staggered)
     document.querySelectorAll('.item-services').forEach((item, index) => {
       if (item && !item.classList.contains('scroll-animate-scale')) {
-        // Optimized stagger delay for smoother sequential animation
         item.style.setProperty('--delay', `${index * 0.2}s`);
-      item.classList.add('scroll-animate-scale');
-      observer.observe(item);
-    }
-  });
+        item.classList.add('scroll-animate-scale');
+        observer.observe(item);
+      }
+    });
 
     // Images with blur reveal effect - All pages
     document.querySelectorAll('.about__image img, .services-page__img img, .item-services__image img, .item-testimonial__image img').forEach(img => {
