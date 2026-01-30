@@ -1,4 +1,5 @@
-/* Astronaut Loader - From Uiverse.io by JkHuger */
+/* Loader – Planet / Black Hole (Uiverse.io by BlackisPlay), themed for aerospace site */
+
 .loader-wrapper {
   position: fixed;
   top: 0;
@@ -20,441 +21,363 @@
   visibility: hidden;
 }
 
-/* Falling Stars Animation */
-@keyframes snow {
-  0% {
-    opacity: 0;
-    transform: translateY(0px);
-  }
-
-  20% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(650px);
-  }
-}
-
-/* Astronaut Rotation */
-@keyframes astronaut {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-/* Star Boxes */
-.box-of-star1,
-.box-of-star2,
-.box-of-star3,
-.box-of-star4 {
-  width: 100%;
-  position: absolute;
-  z-index: 10;
-  left: 0;
-  top: 0;
-  transform: translateY(0px);
-  height: 700px;
-}
-
-.box-of-star1 {
-  animation: snow 5s linear infinite;
-}
-
-.box-of-star2 {
-  animation: snow 5s -1.64s linear infinite;
-}
-
-.box-of-star3 {
-  animation: snow 5s -2.30s linear infinite;
-}
-
-.box-of-star4 {
-  animation: snow 5s -3.30s linear infinite;
-}
-
-/* Stars */
-.star {
-  width: 3px;
-  height: 3px;
+/* Planet trails – orbital rings (site colors: cyan, purple, pink) */
+#planetTrail1,
+#planetTrail2,
+#planetTrail3 {
+  outline: solid rgba(79, 216, 232, 0.35) 1px;
   border-radius: 50%;
-  background-color: #FFF;
   position: absolute;
-  z-index: 10;
-  opacity: 0.7;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.star:before {
+#planetTrail1::after,
+#planetTrail2::after,
+#planetTrail3::after {
   content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: #FFF;
-  position: absolute;
-  z-index: 10;
-  top: 80px;
-  left: 70px;
-  opacity: .7;
-}
-
-.star:after {
-  content: "";
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #FFF;
-  position: absolute;
-  z-index: 10;
-  top: 8px;
-  left: 170px;
-  opacity: .9;
-}
-
-/* Star Positions */
-.star-position1 {
-  top: 30px;
-  left: 20px;
-}
-
-.star-position2 {
-  top: 110px;
-  left: 250px;
-}
-
-.star-position3 {
-  top: 60px;
-  left: 570px;
-}
-
-.star-position4 {
-  top: 120px;
-  left: 900px;
-}
-
-.star-position5 {
-  top: 20px;
-  left: 1120px;
-}
-
-.star-position6 {
-  top: 90px;
-  left: 1280px;
-}
-
-.star-position7 {
-  top: 30px;
-  left: 1480px;
-}
-
-/* Astronaut */
-.astronaut {
-  width: 250px;
-  height: 300px;
-  position: absolute;
-  z-index: 11;
-  top: calc(50% - 150px);
-  left: calc(50% - 125px);
-  animation: astronaut 5s linear infinite;
-}
-
-/* Schoolbag/Backpack */
-.schoolbag {
-  width: 100px;
-  height: 150px;
-  position: absolute;
-  z-index: 1;
-  top: calc(50% - 75px);
-  left: calc(50% - 50px);
-  background-color: #94b7ca;
-  border-radius: 50px 50px 0 0 / 30px 30px 0 0;
-}
-
-/* Head */
-.head {
-  width: 97px;
-  height: 80px;
-  position: absolute;
-  z-index: 3;
-  background: -webkit-linear-gradient(left, #e3e8eb 0%, #e3e8eb 50%, #fbfdfa 50%, #fbfdfa 100%);
-  border-radius: 50%;
-  top: 34px;
-  left: calc(50% - 47.5px);
-}
-
-.head:after {
-  content: "";
-  width: 60px;
-  height: 50px;
-  position: absolute;
-  top: calc(50% - 25px);
-  left: calc(50% - 30px);
-  background: -webkit-linear-gradient(top, #15aece 0%, #15aece 50%, #0391bf 50%, #0391bf 100%);
-  border-radius: 15px;
-}
-
-.head:before {
-  content: "";
-  width: 12px;
-  height: 25px;
-  position: absolute;
-  top: calc(50% - 12.5px);
-  left: -4px;
-  background-color: #618095;
-  border-radius: 5px;
-  box-shadow: 92px 0px 0px #618095;
-}
-
-/* Body */
-.body {
-  width: 85px;
-  height: 100px;
-  position: absolute;
-  z-index: 2;
-  background-color: #fffbff;
-  border-radius: 40px / 20px;
-  top: 105px;
-  left: calc(50% - 41px);
-  background: -webkit-linear-gradient(left, #e3e8eb 0%, #e3e8eb 50%, #fbfdfa 50%, #fbfdfa 100%);
-}
-
-/* Panel */
-.panel {
-  width: 60px;
-  height: 40px;
-  position: absolute;
-  top: 20px;
-  left: calc(50% - 30px);
-  background-color: #b7cceb;
-}
-
-.panel:before {
-  content: "";
-  width: 30px;
-  height: 5px;
-  position: absolute;
-  top: 9px;
-  left: 7px;
-  background-color: #fbfdfa;
-  box-shadow: 0px 9px 0px #fbfdfa, 0px 18px 0px #fbfdfa;
-}
-
-.panel:after {
-  content: "";
-  width: 8px;
-  height: 8px;
-  position: absolute;
-  top: 9px;
-  right: 7px;
-  background-color: #fbfdfa;
-  border-radius: 50%;
-  box-shadow: 0px 14px 0px 2px #fbfdfa;
-}
-
-/* Arms */
-.arm {
-  width: 80px;
-  height: 30px;
-  position: absolute;
-  top: 121px;
-  z-index: 2;
-}
-
-.arm-left {
-  left: 30px;
-  background-color: #e3e8eb;
-  border-radius: 0 0 0 39px;
-}
-
-.arm-right {
-  right: 30px;
-  background-color: #fbfdfa;
-  border-radius: 0 0 39px 0;
-}
-
-.arm-left:before,
-.arm-right:before {
-  content: "";
-  width: 30px;
-  height: 70px;
-  position: absolute;
-  top: -40px;
-}
-
-.arm-left:before {
-  border-radius: 50px 50px 0px 120px / 50px 50px 0 110px;
-  left: 0;
-  background-color: #e3e8eb;
-}
-
-.arm-right:before {
-  border-radius: 50px 50px 120px 0 / 50px 50px 110px 0;
-  right: 0;
-  background-color: #fbfdfa;
-}
-
-.arm-left:after,
-.arm-right:after {
-  content: "";
-  width: 30px;
+  width: 10px;
   height: 10px;
   position: absolute;
-  top: -24px;
+  border-radius: 50%;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 12px currentColor;
 }
 
-.arm-left:after {
-  background-color: #6e91a4;
-  left: 0;
+#planetTrail1::after {
+  background-color: #F5A623;
+  color: #F5A623;
 }
 
-.arm-right:after {
-  right: 0;
-  background-color: #b6d2e0;
-}
-
-/* Legs */
-.leg {
-  width: 30px;
-  height: 40px;
-  position: absolute;
-  z-index: 2;
-  bottom: 70px;
-}
-
-.leg-left {
-  left: 76px;
-  background-color: #e3e8eb;
-  transform: rotate(20deg);
-}
-
-.leg-right {
-  right: 73px;
-  background-color: #fbfdfa;
-  transform: rotate(-20deg);
-}
-
-.leg-left:before,
-.leg-right:before {
-  content: "";
-  width: 50px;
-  height: 25px;
-  position: absolute;
-  bottom: -26px;
-}
-
-.leg-left:before {
-  left: -20px;
-  background-color: #e3e8eb;
-  border-radius: 30px 0 0 0;
-  border-bottom: 10px solid #6d96ac;
-}
-
-.leg-right:before {
-  right: -20px;
-  background-color: #fbfdfa;
-  border-radius: 0 30px 0 0;
-  border-bottom: 10px solid #b0cfe4;
-}
-
-/* Loading Text */
-.loader-text {
-  position: relative;
-  margin-top: 140px;
-  font-family: "Inter", sans-serif;
-  font-size: 1.4rem;
-  font-weight: 700;
+#planetTrail2::after {
+  background-color: #4FD8E8;
   color: #4FD8E8;
-  text-transform: uppercase;
-  letter-spacing: 0.4em;
-  animation: textPulse 2s ease-in-out infinite;
-  z-index: 12;
-  text-shadow: 
-    0 0 10px rgba(79, 216, 232, 0.8),
-    0 0 20px rgba(79, 216, 232, 0.5),
-    0 0 30px rgba(79, 216, 232, 0.3);
 }
 
-@keyframes textPulse {
-  0%, 100% {
-    opacity: 0.7;
-    transform: scale(1);
-    letter-spacing: 0.4em;
+#planetTrail3::after {
+  background-color: #D946AA;
+  color: #D946AA;
+}
+
+#planetTrail1 {
+  width: 120px;
+  height: 120px;
+  animation: trails1 4s infinite;
+}
+
+#planetTrail2 {
+  width: 170px;
+  height: 170px;
+  animation: trails2 4s infinite;
+}
+
+#planetTrail3 {
+  width: 220px;
+  height: 220px;
+  animation: trails3 4s infinite;
+}
+
+@keyframes trails1 {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  40% {
+    transform: translate(-50%, -50%) rotate(360deg);
+    width: 120px;
+    height: 120px;
   }
   50% {
+    width: 0;
+    height: 0;
+  }
+  90% {
+    width: 0;
+    height: 0;
+  }
+  100% {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@keyframes trails2 {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  40% {
+    transform: translate(-50%, -50%) rotate(250deg);
+    width: 170px;
+    height: 170px;
+  }
+  50% {
+    width: 0;
+    height: 0;
+  }
+  90% {
+    width: 0;
+    height: 0;
+  }
+  100% {
+    width: 170px;
+    height: 170px;
+  }
+}
+
+@keyframes trails3 {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  40% {
+    transform: translate(-50%, -50%) rotate(170deg);
+    width: 220px;
+    height: 220px;
+  }
+  50% {
+    width: 0;
+    height: 0;
+  }
+  90% {
+    width: 0;
+    height: 0;
+  }
+  100% {
+    width: 220px;
+    height: 220px;
+  }
+}
+
+.planets {
+  position: relative;
+  height: 120px;
+  width: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Center star – site orange/cyan */
+#star {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle at 30% 30%, #fff8e0, #F5A623);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: bouncingStar 4s infinite;
+  box-shadow: 0 0 24px rgba(245, 166, 35, 0.6);
+}
+
+#starShadow {
+  position: absolute;
+  width: 50px;
+  height: 20px;
+  background-color: #F5A623;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 100%);
+  filter: blur(5px);
+  opacity: 0.3;
+  animation: shadowAnimation 4s infinite;
+}
+
+@keyframes bouncingStar {
+  0% {
+    transform: translate(-50%, -50%);
+  }
+  10% {
+    transform: translate(-50%, -30%);
+  }
+  20% {
+    transform: translate(-50%, -50%);
+  }
+  30% {
+    transform: translate(-50%, -30%);
+  }
+  40% {
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+  }
+  50% {
+    width: 0;
+    height: 0;
+  }
+  90% {
+    width: 0;
+    height: 0;
+  }
+  100% {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@keyframes shadowAnimation {
+  0% { opacity: 0.1; }
+  10% { opacity: 0.4; }
+  20% { opacity: 0.1; }
+  30% { opacity: 0.4; }
+  40% { opacity: 0.1; }
+  50% { opacity: 0; }
+  90% { opacity: 0; }
+  100% { opacity: 0.1; }
+}
+
+/* Black hole – cyan/orange accent to match nav/buttons */
+#blackHole {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle at 30% 30%, #1a2332, #0d1b2a);
+  outline: #4FD8E8 solid 4px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: bouncingBlackHole 4s infinite;
+  box-shadow: 0 0 20px rgba(79, 216, 232, 0.4), inset 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+@keyframes bouncingBlackHole {
+  0% {
+    height: 0;
+    width: 0;
+  }
+  40% {
+    width: 0;
+    height: 0;
+  }
+  50% {
+    width: 50px;
+    height: 50px;
+  }
+  90% {
+    width: 50px;
+    height: 50px;
+  }
+  100% {
+    width: 0;
+    height: 0;
+  }
+}
+
+#blackHoleDisk1 {
+  position: absolute;
+  width: 68px;
+  height: 68px;
+  clip-path: inset(50% 0 0 0);
+  border: #0d1b2a 10px solid;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateX(70deg);
+  animation: diskAn 4s infinite;
+}
+
+#blackHoleDisk2 {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  clip-path: inset(0 0 50% 0);
+  border: #F5A623 10px solid;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateX(55deg);
+  animation: diskAn 4s infinite;
+}
+
+@keyframes diskAn {
+  0% {
+    height: 0;
+    width: 0;
+    border-width: 0;
+  }
+  40% {
+    width: 0;
+    height: 0;
+    border-width: 0;
+  }
+  50% {
+    width: 88px;
+    height: 88px;
+    border-width: 14px;
+    border-color: #4FD8E8;
+  }
+  90% {
+    width: 88px;
+    height: 88px;
+    border-width: 14px;
+    border-color: #4FD8E8;
+  }
+  100% {
+    width: 0;
+    height: 0;
+    border-width: 0;
+  }
+}
+
+/* Orbiting planet dot */
+#planet {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle at 30% 30%, #fff, #4FD8E8);
+  border-radius: 50%;
+  animation: planetAn 4s infinite;
+  box-shadow: 0 0 8px rgba(79, 216, 232, 0.8);
+}
+
+@keyframes planetAn {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+    z-index: 1;
+  }
+  50% {
+    opacity: 0;
+    transform: translate(0, 0);
+    z-index: 1;
+  }
+  58% {
     opacity: 1;
-    transform: scale(1.05);
-    letter-spacing: 0.5em;
+  }
+  70% {
+    opacity: 1;
+    transform: translate(100px, 40px);
+    z-index: 1;
+  }
+  71% {
+    z-index: 0;
+  }
+  90% {
+    z-index: 0;
+    opacity: 1;
+    transform: translate(-10px, 70px);
+  }
+  100% {
+    transform: translate(-10px, 70px);
+    opacity: 0;
   }
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .astronaut {
-    width: 200px;
-    height: 240px;
-    top: calc(50% - 120px);
-    left: calc(50% - 100px);
-  }
-  
-  .loader-text {
-    font-size: 1.1rem;
-    letter-spacing: 0.3em;
-    margin-top: 100px;
-  }
-  
-  .star-position4,
-  .star-position5,
-  .star-position6,
-  .star-position7 {
-    display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .astronaut {
-    width: 150px;
-    height: 180px;
-    top: calc(50% - 90px);
-    left: calc(50% - 75px);
-  }
-  
-  .schoolbag {
-    width: 75px;
-    height: 112px;
-  }
-  
-  .head {
-    width: 73px;
-    height: 60px;
-  }
-  
-  .body {
-    width: 64px;
-    height: 75px;
-  }
-  
-  .arm {
-    width: 60px;
-    height: 22px;
-  }
-  
-  .leg {
-    width: 22px;
-    height: 30px;
-  }
-  
-  .loader-text {
-    font-size: 1rem;
-    letter-spacing: 0.2em;
-    margin-top: 70px;
-  }
-  
-  .box-of-star3,
-  .box-of-star4 {
-    display: none;
-  }
+/* Loading text – site font and accent */
+.loader-text {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Orbitron", sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(79, 216, 232, 0.9);
+  text-shadow: 0 0 20px rgba(79, 216, 232, 0.5);
 }

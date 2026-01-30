@@ -11,56 +11,18 @@
 </head>
 
 <body>
-  <!-- Loader -->
+  <!-- Loader - Planet / Black Hole (Uiverse.io by BlackisPlay, themed for site) -->
   <div class="loader-wrapper">
-    <!-- Star boxes for falling star animation -->
-    <div class="box-of-star1">
-      <div class="star star-position1"></div>
-      <div class="star star-position2"></div>
-      <div class="star star-position3"></div>
-      <div class="star star-position4"></div>
-      <div class="star star-position5"></div>
-      <div class="star star-position6"></div>
-      <div class="star star-position7"></div>
-    </div>
-    <div class="box-of-star2">
-      <div class="star star-position1"></div>
-      <div class="star star-position2"></div>
-      <div class="star star-position3"></div>
-      <div class="star star-position4"></div>
-      <div class="star star-position5"></div>
-      <div class="star star-position6"></div>
-      <div class="star star-position7"></div>
-    </div>
-    <div class="box-of-star3">
-      <div class="star star-position1"></div>
-      <div class="star star-position2"></div>
-      <div class="star star-position3"></div>
-      <div class="star star-position4"></div>
-      <div class="star star-position5"></div>
-      <div class="star star-position6"></div>
-      <div class="star star-position7"></div>
-    </div>
-    <div class="box-of-star4">
-      <div class="star star-position1"></div>
-      <div class="star star-position2"></div>
-      <div class="star star-position3"></div>
-      <div class="star star-position4"></div>
-      <div class="star star-position5"></div>
-      <div class="star star-position6"></div>
-      <div class="star star-position7"></div>
-    </div>
-    <!-- Astronaut -->
-    <div data-js="astro" class="astronaut">
-      <div class="head"></div>
-      <div class="arm arm-left"></div>
-      <div class="arm arm-right"></div>
-      <div class="body">
-        <div class="panel"></div>
-      </div>
-      <div class="leg leg-left"></div>
-      <div class="leg leg-right"></div>
-      <div class="schoolbag"></div>
+    <div id="planetTrail1"></div>
+    <div id="planetTrail2"></div>
+    <div id="planetTrail3"></div>
+    <div class="planets">
+      <div id="planet"></div>
+      <div id="star"></div>
+      <div id="starShadow"></div>
+      <div id="blackHoleDisk2"></div>
+      <div id="blackHole"></div>
+      <div id="blackHoleDisk1"></div>
     </div>
     <div class="loader-text">Loading</div>
   </div>
@@ -109,7 +71,7 @@
     <main class="page">
       <section class="page__main main">
         <video class="main__video" autoplay muted loop playsinline>
-          <source src="images/Video/website intro.mp4" type="video/mp4">
+          <source src="images/Video/Rocket Launch.mp4" type="video/mp4">
         </video>
         <div class="main__container">
           <h3 class="main__caption">Aerospace Engineer</h3>
@@ -117,12 +79,12 @@
           <div class="main__subtitle">
             I'm an <span class="highlight">Aerospace Engineering Student</span> from <span class="highlight">Iowa State University</span>.
           </div>
-          <a href="projects.html" class="main__button button">
+          <a href="resume/Sam Bevans Resume.pdf" target="_blank" rel="noopener noreferrer" class="main__button button">
             <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M0 0h24v24H0z" fill="none"></path>
               <path d="M5 13c0-5.088 2.903-9.436 7-11.182C16.097 3.564 19 7.912 19 13c0 .823-.076 1.626-.22 2.403l1.94 1.832a.5.5 0 0 1 .095.603l-2.495 4.575a.5.5 0 0 1-.793.114l-2.234-2.234a1 1 0 0 0-.707-.293H9.414a1 1 0 0 0-.707.293l-2.234 2.234a.5.5 0 0 1-.793-.114l-2.495-4.575a.5.5 0 0 1 .095-.603l1.94-1.832C5.077 14.626 5 13.823 5 13zm1.476 6.696l.817-.817A3 3 0 0 1 9.414 18h5.172a3 3 0 0 1 2.121.879l.817.817.982-1.8-1.1-1.04a2 2 0 0 1-.593-1.82c.124-.664.187-1.345.187-2.036 0-3.87-1.995-7.3-5-8.96C8.995 5.7 7 9.13 7 13c0 .691.063 1.372.187 2.037a2 2 0 0 1-.593 1.82l-1.1 1.039.982 1.8zM12 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="currentColor"></path>
             </svg>
-            <span>View My Work</span>
+            <span>View My Resume</span>
           </a>
         </div>
       </section>

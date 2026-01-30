@@ -119,157 +119,84 @@ spollerButtons.forEach((button) => {
     return; // Skip animations if user prefers reduced motion
   }
 
-  // Unified scroll handler for better performance - CONSOLIDATED
+  // Lightweight scroll state – minimal work per frame
   let scrollTicking = false;
-  let lastScrollY = 0;
-  let parallaxScrollTimeout = null;
+  let lastScrollY = window.pageYOffset || document.documentElement.scrollTop;
   let lastParallaxUpdate = 0;
+  let headerScrolled = lastScrollY > 60;
 
-  // Apple-style: Track scroll state to pause animations during active scrolling
-  let isScrolling = false;
-  let scrollStateTimeout = null;
-  let scrollVelocityTimeout = null;
+  // Cache header once
+  const headerEl = document.querySelector('.header');
 
-  // Optimized Intersection Observer - batched updates for ultra-smooth performance
+  // Single IntersectionObserver – no queue, direct class add in one rAF
   const observerOptions = {
     root: null,
-    rootMargin: '0px 0px -20% 0px', // Trigger even earlier for smoother appearance
-    threshold: 0.05 // Lower threshold for earlier, smoother triggers
-  };
-
-  // Consolidated scroll handler - handles all scroll-related tasks
-  function handleScroll() {
-    if (!scrollTicking) {
-      requestAnimationFrame(() => {
-        const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-        const deltaY = scrollY - lastScrollY;
-        const now = performance.now();
-        
-        // Update scroll state for animation pausing
-        if (!isScrolling) {
-          isScrolling = true;
-          document.body.classList.add('scrolling');
-        }
-        
-        // Clear existing timeouts
-        if (scrollStateTimeout) clearTimeout(scrollStateTimeout);
-        if (scrollVelocityTimeout) clearTimeout(scrollVelocityTimeout);
-        
-        // Update parallax if needed (throttled)
-        if (layers.length > 0 && (now - lastParallaxUpdate) >= 16) {
-          updateParallax(scrollY);
-          lastParallaxUpdate = now;
-        }
-        
-        // Reset scrolling flag after scroll stops
-        scrollStateTimeout = setTimeout(() => {
-          isScrolling = false;
-          document.body.classList.remove('scrolling');
-          // Process any queued animations now that scrolling has stopped
-          if (animationQueue.length > 0 && !isProcessingQueue) {
-            processAnimationQueue();
-          }
-        }, isMac ? 300 : 200);
-        
-        lastScrollY = scrollY;
-        scrollTicking = false;
-      });
-      scrollTicking = true;
-    }
-  }
-
-  // Parallax layers - cache for performance
-  const layers = document.querySelectorAll('.parallax .layer');
-  
-  // Single scroll event listener
-  window.addEventListener('scroll', handleScroll, { passive: true });
-
-  // Batch animation updates to prevent jerky scroll
-  let animationQueue = [];
-  let isProcessingQueue = false;
-
-  const processAnimationQueue = () => {
-    // Don't process animations while actively scrolling
-    if (isScrolling) {
-      return;
-    }
-    
-    if (animationQueue.length === 0) {
-      isProcessingQueue = false;
-      return;
-    }
-    
-    isProcessingQueue = true;
-    const batch = animationQueue.splice(0, 3); // Process 3 at a time for smoother feel
-    
-    requestAnimationFrame(() => {
-      if (isScrolling) {
-        isProcessingQueue = false;
-        return;
-      }
-      
-      batch.forEach((entry, index) => {
-        // Use requestAnimationFrame for stagger instead of setTimeout
-        requestAnimationFrame(() => {
-          if (!isScrolling) {
-            entry.target.classList.add('animate-in');
-            observer.unobserve(entry.target);
-          }
-        });
-      });
-      
-      // Process next batch on next frame
-      if (animationQueue.length > 0 && !isScrolling) {
-        requestAnimationFrame(processAnimationQueue);
-      } else {
-        isProcessingQueue = false;
-      }
-    });
+    rootMargin: '80px 0px 80px 0px', // Trigger slightly before fully in view + covers initial viewport
+    threshold: 0.08
   };
 
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting && !entry.target.classList.contains('animate-in')) {
-        // Only queue animations if not actively scrolling
-        if (!isScrolling) {
-          animationQueue.push(entry);
-          if (!isProcessingQueue) {
-            processAnimationQueue();
-          }
-        } else {
-          // Queue for later when scrolling stops
-          animationQueue.push(entry);
-        }
+    const toAnimate = [];
+    for (let i = 0; i < entries.length; i++) {
+      const e = entries[i];
+      if (e.isIntersecting && !e.target.classList.contains('animate-in')) toAnimate.push(e.target);
+    }
+    if (toAnimate.length === 0) return;
+    requestAnimationFrame(() => {
+      for (let i = 0; i < toAnimate.length; i++) {
+        toAnimate[i].classList.add('animate-in');
+        observer.unobserve(toAnimate[i]);
       }
     });
   }, observerOptions);
 
-  // Also observe elements that might already be in viewport on page load - OPTIMIZED
-  const checkInitialViewport = () => {
-    // Use IntersectionObserver instead of getBoundingClientRect for better performance
-    const initialObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && !entry.target.classList.contains('animate-in')) {
-          requestAnimationFrame(() => {
-            entry.target.classList.add('animate-in');
-          });
-          initialObserver.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: '50% 0px' }); // Check if element is in top half of viewport
-    
-    const allAnimated = document.querySelectorAll('.scroll-animate, .scroll-animate-scale, .image-reveal, .text-reveal');
-    allAnimated.forEach(el => {
-      initialObserver.observe(el);
-    });
-    
-    // Clean up after a short delay
-    setTimeout(() => {
-      initialObserver.disconnect();
-    }, 1000);
-  };
+  // Scroll handler: only parallax (throttled), header toggle on boundary cross, body.scrolling for CSS
+  let scrollStopTimeout = null;
+  function handleScroll() {
+    if (!scrollTicking) {
+      scrollTicking = true;
+      requestAnimationFrame(() => {
+        const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+        const now = performance.now();
 
-  // Initialize all scroll animations - Optimized to prevent jerky scroll
+        document.body.classList.add('scrolling');
+
+        // Header: only toggle when crossing 60px (avoids constant DOM writes)
+        if (headerEl) {
+          const shouldBeScrolled = scrollY > 60;
+          if (shouldBeScrolled !== headerScrolled) {
+            headerScrolled = shouldBeScrolled;
+            if (headerScrolled) headerEl.classList.add('header--scrolled');
+            else headerEl.classList.remove('header--scrolled');
+          }
+        }
+
+        // Parallax: throttle to ~30fps to reduce work
+        if (layers.length > 0 && (now - lastParallaxUpdate) >= 32) {
+          updateParallax(scrollY);
+          lastParallaxUpdate = now;
+        }
+
+        if (scrollStopTimeout) clearTimeout(scrollStopTimeout);
+        scrollStopTimeout = setTimeout(() => {
+          document.body.classList.remove('scrolling');
+        }, 150);
+
+        lastScrollY = scrollY;
+        scrollTicking = false;
+      });
+    }
+  }
+
+  const layers = document.querySelectorAll('.parallax .layer');
+  window.addEventListener('scroll', handleScroll, { passive: true });
+
+  if (headerEl) {
+    if (lastScrollY > 60) headerEl.classList.add('header--scrolled');
+    else headerEl.classList.remove('header--scrolled');
+  }
+
+  // Initialize scroll animations – single observer handles both load and scroll
   function initScrollAnimations() {
     // Cache DOM queries to avoid repeated lookups
     const isHomePage = document.querySelector('.about-home, .page__services.services');
@@ -280,6 +207,7 @@ spollerButtons.forEach((button) => {
       '.services__container',
       '.skills__container',
       '.outro__container',
+      '.resume__container',
       '.services-page__item',
       '.services-page__container',
       '.contact__container'
@@ -304,6 +232,7 @@ spollerButtons.forEach((button) => {
       '.services__title',
       '.skills__title',
       '.outro__title',
+      '.resume__title',
       '.services-page__title',
       '.contact__title'
     ];
@@ -367,7 +296,7 @@ spollerButtons.forEach((button) => {
     });
 
     // Text elements for reveal animation - All pages
-    document.querySelectorAll('.about__text, .services-page__text, .contact__text, .outro__text, .item-services__text').forEach(text => {
+    document.querySelectorAll('.about__text, .services-page__text, .contact__text, .outro__text, .resume__text, .item-services__text').forEach(text => {
       if (text && !text.classList.contains('text-reveal')) {
         text.classList.add('text-reveal');
         observer.observe(text);
@@ -375,7 +304,7 @@ spollerButtons.forEach((button) => {
     });
 
     // Titles for smooth reveal
-    document.querySelectorAll('.services-page__title, .about__title, .skills__title, .contact__title, .outro__title').forEach(title => {
+    document.querySelectorAll('.services-page__title, .about__title, .skills__title, .contact__title, .outro__title, .resume__title').forEach(title => {
       if (title && !title.classList.contains('scroll-animate')) {
         title.classList.add('scroll-animate');
         observer.observe(title);
@@ -392,7 +321,7 @@ spollerButtons.forEach((button) => {
     });
 
     // Buttons for smooth reveal
-    document.querySelectorAll('.services-page__button, .about__button, .outro__button').forEach(button => {
+    document.querySelectorAll('.services-page__button, .about__button, .outro__button, .resume__button').forEach(button => {
       if (button && !button.classList.contains('scroll-animate-scale')) {
         button.classList.add('scroll-animate-scale');
         observer.observe(button);
@@ -400,17 +329,10 @@ spollerButtons.forEach((button) => {
     });
   }
 
-  // Initialize on DOM ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      initScrollAnimations();
-      // Check for elements already in viewport after a short delay
-      setTimeout(checkInitialViewport, 200);
-    });
+    document.addEventListener('DOMContentLoaded', initScrollAnimations);
   } else {
     initScrollAnimations();
-    // Check for elements already in viewport after a short delay
-    setTimeout(checkInitialViewport, 200);
   }
 
   // Parallax scrolling animation for background layers - OPTIMIZED
@@ -436,14 +358,14 @@ spollerButtons.forEach((button) => {
     // Apple-style subtle button press effect
     document.querySelectorAll('.button, button, a.button').forEach(btn => {
       btn.addEventListener('mousedown', function() {
-        if (!isScrolling) {
+        if (!document.body.classList.contains('scrolling')) {
           this.style.transform = 'translate3d(0, 0, 0) scale(0.98)';
           this.style.transition = 'transform 0.2s var(--ease-ultra-in)';
         }
       }, { passive: true });
       
       btn.addEventListener('mouseup', function() {
-        if (!isScrolling) {
+        if (!document.body.classList.contains('scrolling')) {
           this.style.transition = 'transform 0.4s var(--ease-ultra-out)';
           this.style.transform = '';
         }
@@ -458,7 +380,7 @@ spollerButtons.forEach((button) => {
     // Apple-style subtle card hover - Very gentle lift
     document.querySelectorAll('.item-services, .testimonial__item').forEach(card => {
       card.addEventListener('mouseenter', function() {
-        if (!isScrolling) {
+        if (!document.body.classList.contains('scrolling')) {
           this.style.transition = 'transform 0.6s var(--ease-ultra-smooth)';
           this.style.transform = 'translate3d(0, -2px, 0)';
         }
@@ -473,7 +395,7 @@ spollerButtons.forEach((button) => {
     // Apple-style subtle image zoom - Very gentle
     document.querySelectorAll('.about__image img, .services-page__img img, .item-services__image img').forEach(img => {
       img.addEventListener('mouseenter', function() {
-        if (!isScrolling) {
+        if (!document.body.classList.contains('scrolling')) {
           this.style.transition = 'transform 0.8s var(--ease-ultra-smooth)';
           this.style.transform = 'scale3d(1.02, 1.02, 1)';
         }
