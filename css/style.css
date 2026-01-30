@@ -299,6 +299,37 @@ body.scrolling .scroll-zoom-in.animate-in {
   transform: scale3d(1, 1, 1);
 }
 
+/* Scroll float-in: sections float up into view */
+.about__container.scroll-float-in,
+.services__container.scroll-float-in,
+.skills__container.scroll-float-in,
+.testimonial__container.scroll-float-in,
+.outro__container.scroll-float-in,
+.resume__container.scroll-float-in,
+.services-page__item.scroll-float-in,
+.services-page__container.scroll-float-in,
+.contact__container.scroll-float-in,
+.scroll-float-in {
+  opacity: 0;
+  transform: translate3d(0, 56px, 0);
+  transition: opacity 0.85s var(--ease-apple-out),
+              transform 0.85s var(--ease-apple-out);
+}
+
+.scroll-float-in.animate-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+body.scrolling .scroll-float-in {
+  transition-duration: 0.6s !important;
+}
+
+body.scrolling .scroll-float-in.animate-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
 /* Stagger children for cascade-in (headline → subtext → CTA) */
 .scroll-reveal-stagger > * {
   opacity: 0;
@@ -876,6 +907,7 @@ body.scrolling .scroll-animate-scale.animate-in {
   .scroll-animate-rotate,
   .scroll-reveal-driver,
   .scroll-zoom-in,
+  .scroll-float-in,
   .scroll-reveal-stagger > *,
   .fade-in {
     opacity: 1;
@@ -893,6 +925,7 @@ body.scrolling .scroll-animate-scale.animate-in {
   .scroll-animate-rotate.animate-in,
   .scroll-reveal-driver.animate-in,
   .scroll-zoom-in.animate-in,
+  .scroll-float-in.animate-in,
   .scroll-reveal-stagger.animate-in > *,
   .fade-in.visible {
     opacity: 1;
@@ -1090,12 +1123,14 @@ body.scrolling .text-reveal,
 body.scrolling .scroll-animate-scale,
 body.scrolling .scroll-animate-blur,
 body.scrolling .scroll-reveal-driver,
-body.scrolling .scroll-zoom-in {
+body.scrolling .scroll-zoom-in,
+body.scrolling .scroll-float-in {
   will-change: transform, opacity;
 }
 
-/* Keep zoom-in transition visible during scroll (override body.scrolling *) */
-body.scrolling .scroll-zoom-in {
+/* Keep scroll reveal transitions visible during scroll (override body.scrolling *) */
+body.scrolling .scroll-zoom-in,
+body.scrolling .scroll-float-in {
   transition-duration: 0.6s !important;
 }
 

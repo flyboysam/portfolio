@@ -108,16 +108,10 @@ spollerButtons.forEach((button) => {
 (function() {
   'use strict';
 
-  // Check for reduced motion preference
+  // Reduced motion is handled in CSS (@media prefers-reduced-motion) so script always runs
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  
-  // Mac detection for platform-specific optimizations
   const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform) || 
                 /Mac|iPhone|iPad|iPod/.test(navigator.userAgent);
-  
-  if (prefersReducedMotion) {
-    return; // Skip animations if user prefers reduced motion
-  }
 
   // Lightweight scroll state – minimal work per frame
   let scrollTicking = false;
@@ -266,24 +260,29 @@ spollerButtons.forEach((button) => {
       '.contact__title'
     ];
 
-    // Scroll zoom-in for main section containers (run after layout)
-    function applyScrollZoomIn() {
+    // Float-in for main section containers – run as soon as DOM is ready
+    function applyScrollFloatIn() {
       const viewportH = window.innerHeight;
       containerSelectors.forEach(selector => {
-        const elements = document.querySelectorAll(selector);
-        elements.forEach(el => {
-          if (!el || el.classList.contains('scroll-zoom-in') || el.classList.contains('animate-in')) return;
-          el.classList.add('scroll-zoom-in');
+        document.querySelectorAll(selector).forEach(el => {
+          if (!el) return;
+          if (!el.classList.contains('scroll-float-in')) el.classList.add('scroll-float-in');
+          if (el.classList.contains('animate-in')) return;
           const rect = el.getBoundingClientRect();
-          if (rect.top < viewportH * 0.9) {
-            el.classList.add('animate-in');
+          const inView = rect.top < viewportH * 0.95;
+          if (inView) {
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => el.classList.add('animate-in'));
+            });
           } else {
             observer.observe(el);
           }
         });
       });
     }
-    requestAnimationFrame(applyScrollZoomIn);
+    requestAnimationFrame(applyScrollFloatIn);
+    // Fallback: run again after layout (e.g. after loader hides) so all sections get float-in
+    setTimeout(applyScrollFloatIn, 600);
 
     if (!isHomePage) {
       // On other pages, animate content elements
