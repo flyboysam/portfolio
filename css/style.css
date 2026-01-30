@@ -3150,11 +3150,11 @@ body::before {
 }
 
 .main__container_pages {
-  padding-top: 300px;
+  padding-top: 140px;
 }
 
 .main_pages {
-  min-height: 676px !important;
+  min-height: 480px !important;
 }
 
 /* ****************SERVICES PAGE**************** */
@@ -3265,7 +3265,80 @@ body::before {
 /* ****************CONTACT PAGE****************/
 
 .main_contact {
-  background: url("../images/Contact/Contact-Hero.jpg") center / cover no-repeat;
+  background: url("../images/Contact/Contact-Hero-New.jpg") center / cover no-repeat;
+  position: relative;
+}
+
+/* Overlay so hero text stays readable on Earth/spacecraft image */
+.main_contact::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(13, 27, 42, 0.5) 0%,
+    rgba(13, 27, 42, 0.72) 50%,
+    rgba(13, 27, 42, 0.88) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.main_contact .main__container {
+  z-index: 2;
+}
+
+.main_contact .main__title_contact {
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.6))
+          drop-shadow(0 0 24px rgba(79, 216, 232, 0.4));
+}
+
+.main_contact .main__caption_contact {
+  font-size: 1rem;
+  letter-spacing: 0.25em;
+  margin-bottom: 1rem;
+}
+
+.main_contact .main__text_contact {
+  background: rgba(13, 27, 42, 0.55);
+  border-left-color: #4FD8E8;
+  box-shadow: 0 4px 24px rgba(79, 216, 232, 0.25);
+  max-width: 36rem;
+}
+
+/* Contact section: seamless flow from hero, aerospace vibe */
+.page__contact.contact {
+  background: linear-gradient(
+    180deg,
+    rgba(13, 27, 42, 0.97) 0%,
+    rgba(26, 35, 50, 0.98) 30%,
+    rgba(13, 27, 42, 0.99) 100%
+  );
+  position: relative;
+}
+
+.page__contact.contact::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(79, 216, 232, 0.4),
+    rgba(217, 70, 170, 0.3),
+    transparent
+  );
+  opacity: 0.8;
 }
 
 .contact__container {
@@ -3320,22 +3393,21 @@ body::before {
   display: inline-flex;
   align-items: center;
   gap: 1.5rem;
-  padding: 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 8px;
-  background: #ffffff;
-  transition: all 0.3s ease;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(79, 216, 232, 0.25);
+  border-radius: 12px;
+  background: rgba(26, 35, 50, 0.6);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   width: 100%;
   text-decoration: none;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(79, 216, 232, 0.06);
 }
 
 .connect-contact__item:hover {
-  border-color: #ff7a59;
-  background: rgba(255, 122, 89, 0.06);
-  box-shadow: 0 0 20px rgba(77, 212, 255, 0.4);
-  transform: translateX(4px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-color: rgba(79, 216, 232, 0.6);
+  background: rgba(79, 216, 232, 0.08);
+  box-shadow: 0 0 24px rgba(79, 216, 232, 0.35), 0 4px 20px rgba(0, 0, 0, 0.25);
+  transform: translate3d(4px, 0, 0);
 }
 
 .connect-contact__icon {
@@ -3368,7 +3440,7 @@ body::before {
   letter-spacing: 0.1em;
   line-height: 1.2;
   text-transform: uppercase;
-  color: rgba(17, 24, 39, 0.95) !important;
+  color: rgba(79, 216, 232, 0.95) !important;
   text-shadow: none;
 }
 
@@ -3376,7 +3448,7 @@ body::before {
   font-size: 1.125rem;
   line-height: 1.5;
   letter-spacing: 0.02em;
-  color: rgba(17, 24, 39, 0.9) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
 }
 
 .contact__links {
@@ -3389,7 +3461,7 @@ body::before {
   max-width: 100%;
   font-size: 1.125rem;
   line-height: 1.7;
-  color: rgba(17, 24, 39, 0.9) !important;
+  color: rgba(255, 255, 255, 0.88) !important;
   margin-top: 1rem;
   margin-bottom: 2rem;
 }
@@ -4363,7 +4435,7 @@ iframe {
   }
 
   .main__container_pages {
-    padding-top: 290px;
+    padding-top: 100px;
   }
 
   .main__title {
