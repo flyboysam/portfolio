@@ -266,10 +266,17 @@ spollerButtons.forEach((button) => {
     ];
 
     // Apple-style scroll-driven reveal for main section containers
+    const viewportH = window.innerHeight;
     containerSelectors.forEach(selector => {
       document.querySelectorAll(selector).forEach(el => {
-        if (el && !el.classList.contains('scroll-reveal-driver') && !el.classList.contains('scroll-animate')) {
-          el.classList.add('scroll-reveal-driver');
+        if (!el || el.classList.contains('scroll-reveal-driver') || el.classList.contains('scroll-animate')) return;
+        el.classList.add('scroll-reveal-driver');
+        // Already in view: show immediately so no flash
+        const rect = el.getBoundingClientRect();
+        if (rect.top < viewportH * 0.85) {
+          el.style.setProperty('--scroll-reveal', '1');
+          el.classList.add('animate-in');
+        } else {
           scrollDriverObserver.observe(el);
         }
       });

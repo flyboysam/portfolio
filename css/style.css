@@ -211,9 +211,9 @@ textarea:focus-visible {
   transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
 }
 
-/* During scroll: snap to final state so scroll stays smooth */
+/* During scroll: keep smooth transition so user sees the reveal (Apple-style) */
 body.scrolling .scroll-animate {
-  transition-duration: 0.05ms !important;
+  transition-duration: 0.6s !important;
 }
 
 body.scrolling .scroll-animate.animate-in {
@@ -280,7 +280,7 @@ body.scrolling .scroll-reveal-driver.animate-in {
 }
 
 body.scrolling .image-reveal {
-  transition-duration: 0.05ms !important;
+  transition-duration: 0.6s !important;
 }
 
 /* Text reveal – Apple-style cascade */
@@ -297,7 +297,7 @@ body.scrolling .image-reveal {
 }
 
 body.scrolling .text-reveal {
-  transition-duration: 0.05ms !important;
+  transition-duration: 0.6s !important;
 }
 
 .text-reveal p {
@@ -331,7 +331,7 @@ body.scrolling .text-reveal {
 }
 
 body.scrolling .scroll-animate-blur {
-  transition-duration: 0.05ms !important;
+  transition-duration: 0.6s !important;
 }
 
 .scroll-animate-scale {
@@ -348,7 +348,7 @@ body.scrolling .scroll-animate-blur {
 }
 
 body.scrolling .scroll-animate-scale {
-  transition-duration: 0.05ms !important;
+  transition-duration: 0.6s !important;
 }
 
 body.scrolling .scroll-animate-scale.animate-in {
