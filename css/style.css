@@ -135,6 +135,9 @@
   /* Apple-style scroll reveal (ease-out-expo feel) */
   --ease-apple-out: cubic-bezier(0.19, 1, 0.22, 1);
   --scroll-reveal-offset: 32px;
+  /* Smooth transition durations (site-wide) */
+  --transition-smooth: 0.4s;
+  --transition-smooth-slow: 0.55s;
   /* Premium design tokens */
   --shadow-premium: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
   --shadow-premium-hover: 0 16px 48px rgba(79, 216, 232, 0.15), 0 8px 24px rgba(0, 0, 0, 0.1);
@@ -150,6 +153,35 @@ html {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+}
+
+/* ========== SMOOTH TRANSITIONS (site-wide) ========== */
+button,
+.button,
+a,
+input,
+textarea,
+select,
+[role="button"],
+.item-services,
+.testimonial__item,
+.scroll-progress,
+.header,
+.logo,
+.logo-img,
+.menu__link,
+.form__input,
+.form__textarea {
+  transition-timing-function: var(--ease-ultra-smooth);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }
 
@@ -1168,7 +1200,9 @@ section:not(:first-child)::before {
   letter-spacing: 2px;
   text-transform: uppercase;
   filter: drop-shadow(0 0 12px rgba(110, 231, 245, 0.8)) drop-shadow(0 0 24px rgba(91, 159, 255, 0.6));
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: letter-spacing var(--transition-smooth) var(--ease-ultra-smooth),
+              filter var(--transition-smooth) var(--ease-ultra-smooth),
+              transform var(--transition-smooth) var(--ease-ultra-smooth);
 }
 
 .logo:hover .logo-text {
@@ -1180,7 +1214,7 @@ section:not(:first-child)::before {
   width: auto;
   display: block;
   border-radius: 12px;
-  transition: filter 0.3s ease;
+  transition: filter var(--transition-smooth) var(--ease-ultra-smooth);
   filter: drop-shadow(0 2px 8px rgba(79, 216, 232, 0.35))
           brightness(1.02)
           saturate(0.9)
@@ -1515,6 +1549,7 @@ body::before {
   background: linear-gradient(180deg, rgba(79, 216, 232, 0.5) 0%, rgba(107, 63, 160, 0.5) 100%);
   border-radius: 5px;
   border: 2px solid #0d1b2a;
+  transition: background var(--transition-smooth) var(--ease-ultra-smooth);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -2331,8 +2366,8 @@ body::before {
 .about__image img,
 .services-page__img img,
 .item-services__image img {
-  transition: transform 0.7s var(--ease-smooth),
-              filter 0.7s var(--ease-smooth);
+  transition: transform var(--transition-smooth-slow) var(--ease-ultra-smooth),
+              filter var(--transition-smooth-slow) var(--ease-ultra-smooth);
   transform-style: preserve-3d;
   backface-visibility: hidden;
   will-change: transform, filter;
@@ -2723,7 +2758,9 @@ body::before {
   flex-direction: column;
   align-items: start;
   min-height: 100%;
-  transition: all 0.3s ease;
+  transition: transform var(--transition-smooth-slow) var(--ease-ultra-smooth),
+              box-shadow var(--transition-smooth-slow) var(--ease-ultra-smooth),
+              border-image var(--transition-smooth-slow) var(--ease-ultra-smooth);
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(232, 244, 255, 0.9) 100%);
   border: 3px solid transparent;
   border-image: linear-gradient(135deg, #4FD8E8 0%, #3D7EDB 100%) 1;
@@ -3869,7 +3906,10 @@ body::before {
   font-size: 1rem;
   line-height: 1.5;
   letter-spacing: 0;
-  transition: all 0.3s ease;
+  transition: border-color var(--transition-smooth) var(--ease-ultra-smooth),
+              box-shadow var(--transition-smooth) var(--ease-ultra-smooth),
+              transform var(--transition-smooth) var(--ease-ultra-smooth),
+              background-color var(--transition-smooth) var(--ease-ultra-smooth);
   font-family: inherit;
   box-shadow: none;
 }
@@ -3889,7 +3929,6 @@ body::before {
   box-shadow: 0 0 20px rgba(79, 216, 232, 0.4),
               inset 0 0 10px rgba(79, 216, 232, 0.1);
   transform: translate3d(0, -1px, 0);
-  transition: all 0.5s var(--ease-ultra-smooth);
 }
 
 /* Premium Link Hover Effects - Ultra Smooth (non-nav links) */
