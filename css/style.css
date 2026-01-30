@@ -1445,6 +1445,26 @@ body::before {
   }
 }
 
+/* Scroll progress: thin gradient bar at top (under header) */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  max-width: 100%;
+  background: linear-gradient(90deg, #4dd4ff 0%, #6b3fa0 50%, #ff7a59 100%);
+  z-index: 999;
+  transition: width 0.12s var(--ease-smooth);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress {
+    transition: none;
+  }
+}
+
 .header {
   position: absolute;
   top: 0;
@@ -1473,6 +1493,127 @@ body::before {
 .header.header--scrolled {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25),
               0 4px 24px rgba(79, 216, 232, 0.2);
+}
+
+/* Nav background: shooting-star / star-trail effect across entire bar (Uiverse.io marsella_3472, themed) */
+.header__bg-pattern {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.header__bg-pattern::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 260vw;
+  height: 600%;
+  min-height: 800px;
+  transform: translate(-50%, -50%) rotate(-35deg);
+  background: #0d1b2a;
+  background-image:
+    /* Streaks spread across full width – cyan */
+    radial-gradient(ellipse 100% 15% at 0% 10%, rgba(79, 216, 232, 0.2), transparent 55%),
+    radial-gradient(ellipse 100% 15% at 25% 25%, rgba(79, 216, 232, 0.18), transparent 55%),
+    radial-gradient(ellipse 100% 15% at 50% 15%, rgba(79, 216, 232, 0.2), transparent 55%),
+    radial-gradient(ellipse 100% 15% at 75% 30%, rgba(79, 216, 232, 0.16), transparent 55%),
+    radial-gradient(ellipse 100% 15% at 100% 20%, rgba(79, 216, 232, 0.18), transparent 55%),
+    /* Purple / pink across bar */
+    radial-gradient(ellipse 90% 12% at 15% 50%, rgba(107, 63, 160, 0.18), transparent 50%),
+    radial-gradient(ellipse 90% 12% at 50% 55%, rgba(217, 70, 170, 0.16), transparent 50%),
+    radial-gradient(ellipse 90% 12% at 85% 45%, rgba(217, 70, 170, 0.18), transparent 50%),
+    /* Orange accents across bar */
+    radial-gradient(ellipse 90% 12% at 10% 70%, rgba(245, 166, 35, 0.14), transparent 50%),
+    radial-gradient(ellipse 90% 12% at 40% 75%, rgba(245, 166, 35, 0.12), transparent 50%),
+    radial-gradient(ellipse 90% 12% at 70% 65%, rgba(245, 166, 35, 0.14), transparent 50%),
+    radial-gradient(ellipse 90% 12% at 95% 80%, rgba(245, 166, 35, 0.12), transparent 50%),
+    /* Star points – full width spread */
+    radial-gradient(2px 2px at 5% 15%, rgba(79, 216, 232, 0.55), transparent),
+    radial-gradient(2px 2px at 20% 35%, rgba(217, 70, 170, 0.5), transparent),
+    radial-gradient(2px 2px at 35% 10%, rgba(245, 166, 35, 0.45), transparent),
+    radial-gradient(2px 2px at 50% 50%, rgba(79, 216, 232, 0.5), transparent),
+    radial-gradient(2px 2px at 65% 25%, rgba(107, 63, 160, 0.5), transparent),
+    radial-gradient(2px 2px at 80% 60%, rgba(217, 70, 170, 0.45), transparent),
+    radial-gradient(2px 2px at 95% 40%, rgba(245, 166, 35, 0.5), transparent);
+  background-repeat: repeat;
+  background-size:
+    280px 220px,
+    280px 220px,
+    280px 220px,
+    280px 220px,
+    280px 220px,
+    260px 200px,
+    260px 200px,
+    260px 200px,
+    260px 200px,
+    260px 200px,
+    260px 200px,
+    260px 200px,
+    280px 220px,
+    280px 220px,
+    280px 220px,
+    280px 220px,
+    280px 220px,
+    280px 220px,
+    280px 220px;
+  animation: navStarDrift 80s linear infinite;
+}
+
+@keyframes navStarDrift {
+  0% {
+    background-position:
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0;
+  }
+  100% {
+    background-position:
+      -320px 2000px,
+      -80px 1800px,
+      160px 2200px,
+      400px 1900px,
+      -400px 2100px,
+      -200px 1600px,
+      100px 1700px,
+      380px 1500px,
+      -280px 1400px,
+      40px 1300px,
+      300px 1200px,
+      -120px 1100px,
+      -50px 600px,
+      80px 500px,
+      -200px 700px,
+      150px 400px,
+      -80px 300px,
+      220px 200px,
+      -150px 100px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header__bg-pattern::before {
+    animation: none;
+  }
 }
 
 .header::before {

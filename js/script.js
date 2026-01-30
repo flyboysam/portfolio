@@ -125,8 +125,9 @@ spollerButtons.forEach((button) => {
   let lastParallaxUpdate = 0;
   let headerScrolled = lastScrollY > 60;
 
-  // Cache header once
+  // Cache header and scroll progress once
   const headerEl = document.querySelector('.header');
+  const progressEl = document.querySelector('.scroll-progress');
 
   // Single IntersectionObserver – no queue, direct class add in one rAF
   const observerOptions = {
@@ -171,6 +172,13 @@ spollerButtons.forEach((button) => {
           }
         }
 
+        // Scroll progress bar: width = % of page scrolled
+        if (progressEl) {
+          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+          const pct = maxScroll > 0 ? Math.min(100, (scrollY / maxScroll) * 100) : 0;
+          progressEl.style.width = pct + '%';
+        }
+
         // Parallax: throttle to ~30fps to reduce work
         if (layers.length > 0 && (now - lastParallaxUpdate) >= 32) {
           updateParallax(scrollY);
@@ -195,6 +203,9 @@ spollerButtons.forEach((button) => {
     if (lastScrollY > 60) headerEl.classList.add('header--scrolled');
     else headerEl.classList.remove('header--scrolled');
   }
+
+  // Update scroll progress and header on load (e.g. hash or restored position)
+  handleScroll();
 
   // Initialize scroll animations – single observer handles both load and scroll
   function initScrollAnimations() {
